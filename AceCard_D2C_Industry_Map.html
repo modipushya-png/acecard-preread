@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AceCard — D2C Industry Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0A0A0F;
+    color: rgba(255,255,255,0.92);
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    font-size: 16px;
+    padding: 0;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    top: -10%;
+    right: -5%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(167,139,250,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 80px 32px 120px; position: relative; z-index: 1; }
+
+  /* Header */
+  header { margin-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 48px; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(167,139,250,0.7);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 800;
+    font-size: 56px;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .lede { font-size: 19px; color: rgba(255,255,255,0.62); max-width: 700px; line-height: 1.55; }
+  .meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 32px; letter-spacing: 0.05em; }
+
+  /* Section blocks */
+  section { margin-bottom: 72px; }
+  h2 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  h2 .num { color: rgba(167,139,250,0.4); margin-right: 16px; font-weight: 800; }
+  .h2-sub { color: rgba(255,255,255,0.45); font-size: 15px; margin-bottom: 28px; }
+
+  /* AceCard feature recap card */
+  .recap {
+    background: rgba(167,139,250,0.04);
+    border: 1px solid rgba(167,139,250,0.15);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 56px;
+  }
+  .recap h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: rgba(255,255,255,0.92);
+  }
+  .recap ul { list-style: none; }
+  .recap li {
+    padding: 8px 0;
+    font-size: 15px;
+    color: rgba(255,255,255,0.78);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .recap li:last-child { border: none; }
+  .recap li strong { color: rgba(167,139,250,0.95); font-weight: 600; }
+
+  /* Tier banner */
+  .tier-banner {
+    display: inline-block;
+    background: rgba(167,139,250,0.1);
+    color: rgba(167,139,250,0.95);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .tier-banner.s { background: rgba(167,139,250,0.18); color: #C4B5FD; }
+  .tier-banner.a { background: rgba(167,139,250,0.1); }
+  .tier-banner.b { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.55); }
+
+  /* Industry card */
+  .industry {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+  }
+  .industry h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .who {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(167,139,250,0.7);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .row { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 10px 0; align-items: start; border-top: 1px solid rgba(255,255,255,0.04); }
+  .row:first-of-type { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px; margin-top: 6px; }
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.4);
+    padding-top: 3px;
+  }
+  .value { font-size: 15px; line-height: 1.55; color: rgba(255,255,255,0.82); }
+  .value strong { color: #fff; font-weight: 600; }
+  .value .v-accent { color: #C4B5FD; font-weight: 500; }
+
+  /* Specific list of companies inline */
+  .companies {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .companies span {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.7);
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .companies span.uae {
+    border-color: rgba(167,139,250,0.2);
+    color: rgba(196,181,253,0.8);
+  }
+
+  /* TOC */
+  .toc {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 64px;
+  }
+  .toc h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px 24px; }
+  .toc a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 4px 0;
+    display: block;
+    transition: color 0.2s;
+  }
+  .toc a:hover { color: #C4B5FD; }
+  .toc-num { color: rgba(167,139,250,0.5); font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-right: 8px; }
+
+  /* The "what they lack" pull quote style */
+  .lack-quote {
+    border-left: 2px solid rgba(167,139,250,0.5);
+    padding-left: 14px;
+    color: rgba(255,255,255,0.68);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 15px;
+  }
+
+  /* Closing notes */
+  .footer-block {
+    margin-top: 96px;
+    padding: 40px;
+    background: rgba(167,139,250,0.05);
+    border: 1px solid rgba(167,139,250,0.18);
+    border-radius: 14px;
+  }
+  .footer-block h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+  .footer-block p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 12px; }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 48px 20px 80px; }
+    h1 { font-size: 38px; }
+    h2 { font-size: 24px; }
+    .row { grid-template-columns: 1fr; gap: 4px; }
+    .label { padding-top: 0; }
+    .industry { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">D2C Industry Map · Internal · April 2026</div>
+  <h1>Where AceCard wins on the D2C side.</h1>
+  <p class="lede">Industries where the NFC card, zero-branding profile, remarketing pixels, voice capture and CRM sync solve a real, named problem people are paying for in worse ways today. Tiered by fit. Specific companies named. No fluff.</p>
+  <div class="meta">28 INDUSTRIES · 350+ NAMED COMPANIES · BIASED TOWARDS INDIA + UAE</div>
+</header>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>Contents</h3>
+  <div class="toc-grid">
+    <a href="#core"><span class="toc-num">00</span>What AceCard does (recap)</a>
+    <a href="#realestate"><span class="toc-num">01</span>Real Estate</a>
+    <a href="#insurance"><span class="toc-num">02</span>Insurance Agents</a>
+    <a href="#wealth"><span class="toc-num">03</span>Wealth & Private Banking</a>
+    <a href="#luxury"><span class="toc-num">04</span>Luxury Retail</a>
+    <a href="#auto"><span class="toc-num">05</span>Auto Dealerships</a>
+    <a href="#dsa"><span class="toc-num">06</span>Mortgage & Loan DSAs</a>
+    <a href="#hotel"><span class="toc-num">07</span>Hotel & MICE Sales</a>
+    <a href="#pharma"><span class="toc-num">08</span>Pharma / Medical Reps</a>
+    <a href="#consulting"><span class="toc-num">09</span>Consulting Firms</a>
+    <a href="#bschool"><span class="toc-num">10</span>Business Schools</a>
+    <a href="#weddings"><span class="toc-num">11</span>Wedding Planners & Event Mgmt</a>
+    <a href="#aesthetics"><span class="toc-num">12</span>Aesthetic & Cosmetic Healthcare</a>
+    <a href="#architects"><span class="toc-num">13</span>Architects & Interior Designers</a>
+    <a href="#legal"><span class="toc-num">14</span>Law Firms</a>
+    <a href="#pr"><span class="toc-num">15</span>PR &amp; Ad Agencies</a>
+    <a href="#vc"><span class="toc-num">16</span>VC / PE / IB</a>
+    <a href="#travel"><span class="toc-num">17</span>Travel & DMCs</a>
+    <a href="#photo"><span class="toc-num">18</span>Photographers / Videographers</a>
+    <a href="#hr"><span class="toc-num">19</span>Recruiters / Headhunters</a>
+    <a href="#media"><span class="toc-num">20</span>Media Houses</a>
+    <a href="#ca"><span class="toc-num">21</span>CAs &amp; Tax Advisors</a>
+    <a href="#build"><span class="toc-num">22</span>Building Materials Sales</a>
+    <a href="#studyabroad"><span class="toc-num">23</span>Study Abroad / Education Consultants</a>
+    <a href="#fitness"><span class="toc-num">24</span>Fitness Coaches & Wellness</a>
+    <a href="#speakers"><span class="toc-num">25</span>Speakers, Authors, Coaches</a>
+    <a href="#fundraising"><span class="toc-num">26</span>NGO Fundraising</a>
+    <a href="#trade"><span class="toc-num">27</span>Trade Show Exhibitors</a>
+    <a href="#hospitality"><span class="toc-num">28</span>F&amp;B / Restaurant Sales</a>
+  </div>
+</div>
+
+<!-- Recap -->
+<section id="core">
+  <h2>What AceCard actually does (D2C side)</h2>
+  <p class="h2-sub">A baseline so the industry mapping below makes sense. Skip if you know it.</p>
+
+  <div class="recap">
+    <h3>The eight things in one product</h3>
+    <ul>
+      <li><strong>NFC card.</strong> Black-and-gold, premium build, ₹3,000 anchor, no app install on prospect's side.</li>
+      <li><strong>Fully customisable profile.</strong> Video backgrounds, custom colours, fonts, galleries, products, articles, embedded files, configurable lead form. No competitor in India offers this depth at a one-time price.</li>
+      <li><strong>Zero AceCard branding by default.</strong> The page that opens looks like the user's brand or company. TapOnn, Popl, V1CE all charge to remove their watermark. AceCard ships clean.</li>
+      <li><strong>Meta + Google + LinkedIn remarketing pixels.</strong> Fire on every tap. No NFC card competitor has this at any price tier. Every handshake becomes a retargeting audience.</li>
+      <li><strong>Voice capture + AI structuring.</strong> 90 seconds of speech after a meeting becomes structured CRM data: contact, company, deal size, objections, next steps.</li>
+      <li><strong>4 CRM integrations live.</strong> HubSpot, Salesforce, Zoho, Odoo. Pipedrive on roadmap.</li>
+      <li><strong>Trackable links.</strong> See which prospects opened which collateral.</li>
+      <li><strong>Bulk admin dashboard.</strong> Pre-configure 200+ cards with brand consistency, then let individuals personalise within the brand frame.</li>
+    </ul>
+  </div>
+
+  <p style="color: rgba(255,255,255,0.6); font-size: 15px;">Three filters used to rank industries below: (1) Do they exchange physical cards in person? (2) Does follow-up after the meeting drive revenue? (3) Does the person carrying the card care about how their digital identity looks? The more "yes" the higher the tier.</p>
+</section>
+
+<!-- ============================== -->
+<!-- S-TIER -->
+<!-- ============================== -->
+<section>
+  <div class="tier-banner s">S-Tier · Bullseye D2C ICP</div>
+  <h2><span class="num">S</span>The eight industries where AceCard is obvious</h2>
+  <p class="h2-sub">High meeting volume, branded image matters, and the lead either lives or dies on follow-up. Sell into these first.</p>
+</section>
+
+<!-- 01 Real Estate -->
+<article class="industry" id="realestate">
+  <h3>01 · Real Estate</h3>
+  <div class="who">Site sales executives · brokers · channel partners · luxury developers</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A site sales exec at a Lodha or DLF launch handles 50–150 walk-ins on a weekend. A broker does 5–10 site visits a day across multiple builders. An average deal cycle is 4 to 7 in-person touches before a token cheque.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value"><span class="lack-quote">"We have a builder CRM. We have a Channel Partner WhatsApp group. We have walk-in registers. None of them talk to each other. By Monday morning, half the weekend's walk-ins don't exist anywhere."</span> Walk-in data captured on paper or a Google form rarely reaches the developer's marketing team. Meta retargeting on walk-ins is impossible because pixels never fired.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Sales exec taps card on prospect → fully branded developer profile opens (project gallery, drone walkthrough, floorplans, virtual tour, EMI calculator, channel partner agreement form). <strong>Pixel fires</strong> — that prospect is now in Meta and Google retargeting audiences for that specific project. Voice capture after site visit logs budget, BHK preference, possession timeline, family stage. Pushes to the developer's Salesforce or Zoho.</div></div>
+
+  <div class="row"><div class="label">Bonus</div><div class="value">For brokers, the "your brand, not ours" feature is critical. A broker is selling themselves, not us. They get an Instagram-grade portfolio page that costs nothing per month.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>DLF</span><span>Lodha Group</span><span>Godrej Properties</span><span>Oberoi Realty</span><span>Prestige</span><span>Brigade</span><span>Sobha</span><span>Hiranandani</span><span>Embassy</span><span>Tata Housing</span><span>Mahindra Lifespaces</span><span>M3M</span><span>Signature Global</span><span>ATS</span><span>Bhutani</span><span>Anarock</span><span>PropTiger</span><span>Square Yards</span><span>NoBroker</span><span>99acres</span><span>Magicbricks</span><span>Smartworks</span><span>WeWork India</span><span>JLL</span><span class="uae">Emaar (UAE)</span><span class="uae">DAMAC (UAE) — already in pipeline</span><span class="uae">Sobha Realty (UAE)</span><span class="uae">Aldar (UAE)</span><span class="uae">Nakheel</span><span class="uae">Meraas</span><span class="uae">Azizi</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 02 Insurance -->
+<article class="industry" id="insurance">
+  <h3>02 · Insurance Agents</h3>
+  <div class="who">Tied agents · LIC development officers · bancassurance reps · MDRT producers</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">An LIC agent can have 800–2,000 lifetime policy holders. A private insurance tied agent runs 5–10 home visits a day. Bharti AXA's VP of Sales told the founders he had personally designed a 3-step manual workaround because he could not verify if meetings happened. This is already the canonical AceCard validation story.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value"><span class="lack-quote">"The HDFC app is well-built. I still spend two hours every evening typing notes about each lead." — HDFC field rep, validation conversation.</span> Insurer apps are forms-first. Agents type at the end of the day from memory. CRM data quality drops 24 hours after the visit.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Agent's NFC profile carries policy comparators, premium calculator, IRDAI registration, branded under the insurer. <strong>Voice capture replaces typing</strong> — 90 seconds about the family meeting and the AI extracts: number of dependents, income bracket, existing cover, riders proposed, next visit date. CRM sync to insurer's system. Remarketing pixel adds the household to the insurer's awareness audience.</div></div>
+
+  <div class="row"><div class="label">Bonus</div><div class="value">Solves the "rep churn = data loss" problem PNB Housing's Head of HR named. Knowledge stays in the system, not the rep's head.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>LIC of India</span><span>Bharti AXA Life — pipeline</span><span>HDFC Life</span><span>ICICI Prudential</span><span>SBI Life</span><span>Bajaj Allianz Life</span><span>Tata AIA — validation logo</span><span>Max Life</span><span>Aditya Birla Sun Life</span><span>Canara HSBC OBC Life</span><span>PNB MetLife</span><span>Kotak Life</span><span>Star Health</span><span>Niva Bupa</span><span>ICICI Lombard</span><span>Bajaj Allianz GI</span><span>Reliance General</span><span>Cholamandalam MS</span><span>Future Generali</span><span class="uae">Sukoon Insurance (UAE)</span><span class="uae">Salama (UAE)</span><span class="uae">Daman</span><span class="uae">Orient Insurance</span><span class="uae">Watania Takaful</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 03 Wealth -->
+<article class="industry" id="wealth">
+  <h3>03 · Wealth Management & Private Banking</h3>
+  <div class="who">Relationship Managers · investment advisors · family office advisors</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">An RM at IIFL Wealth (now 360 ONE) or Kotak Wealth manages 30–80 HNI families with quarterly reviews. Each meeting is 90 minutes minimum. Compliance requires every interaction be logged. Client churn from RM movement is the single biggest economic risk.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">RMs use spiral notebooks. CRM logs are sparse and written days later. Family-office context — kids' education timing, succession plans, real-estate moves, business exits — lives in the RM's head. When the RM leaves, the AUM walks with them.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Branded RM profile = SEBI registration, fund performance, advisory team bios, secure document portal link, calendar booking. Voice capture immediately after the family meeting captures the soft signals (next year's fees, daughter's wedding, business sale) that drive product conversations. CRM sync to Salesforce Financial Services Cloud or Wealthy.in. Remarketing pixel runs branded thought-leadership ads to the family.</div></div>
+
+  <div class="row"><div class="label">Bonus</div><div class="value">For paid product advisors who flip every 18 months between firms, the "your brand, not ours" feature lets them rebrand instantly without printing new cards.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>360 ONE (ex-IIFL Wealth)</span><span>Kotak Wealth</span><span>Edelweiss Wealth (Nuvama)</span><span>ASK Wealth</span><span>Centrum Wealth</span><span>Avendus Wealth</span><span>Anand Rathi Wealth</span><span>Motilal Oswal Wealth</span><span>Julius Baer India</span><span>Sanctum Wealth</span><span>Waterfield Advisors</span><span>Client Associates</span><span>Entrust Family Office</span><span>HSBC Premier India</span><span>Standard Chartered Priority</span><span>JP Morgan PB India</span><span>Citi Private Bank India</span><span class="uae">Emirates NBD PB</span><span class="uae">ADCB Private</span><span class="uae">Mashreq Private</span><span class="uae">First Abu Dhabi Bank Private</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 04 Luxury Retail -->
+<article class="industry" id="luxury">
+  <h3>04 · Luxury Retail (Jewelry, Watches, Couture, Cars)</h3>
+  <div class="who">Sales associates · personal shoppers · clienteling teams · flagship store managers</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A senior SA at Tanishq's flagship has a personal client book of 200–500 names. A Rolex SA at Ethos handles a queue of patrons waiting on allocations. Clienteling at LV Mumbai is appointment-only. Every store visit is a 1.5-hour high-intent transaction.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">SAs maintain client preferences in WhatsApp screenshots and a notebook. There is no standardised CRM for "Mrs Mehta — anniversary 12 Oct, husband's 60th, only Rose Gold, allergic to Nickel." When the SA leaves, that client is up for grabs across the street. Luxury brands fight client retention manually.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">SA's profile = personal lookbook, video try-ons, current allocation list, calendar for private appointments, exclusive event RSVP. Tap during walk-in adds the customer to that brand's Meta + Google audience for the next collection drop. Voice capture after the appointment logs preferences, family events, budget tolerance, sensitivities. Goes into the brand's CRM, not the SA's notebook. Brand keeps the client even if the SA leaves.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Tanishq (Titan)</span><span>Kalyan Jewellers</span><span>Malabar Gold</span><span>PC Jeweller</span><span>TBZ</span><span>Joyalukkas</span><span>Hazoorilal</span><span>Reliance Jewels</span><span>Ethos Watches</span><span>Helios</span><span>Time Avenue</span><span>Kapoor Watch Co</span><span>Le Mill</span><span>Aza</span><span>Ensemble</span><span>Sabyasachi (own stores)</span><span>Manish Malhotra</span><span>Anita Dongre</span><span>Rohit Bal</span><span>LV India</span><span>Hermès Mumbai</span><span>Cartier India</span><span>Bulgari India</span><span class="uae">Damas (UAE)</span><span class="uae">Joyalukkas UAE</span><span class="uae">Cartier Mall of Emirates</span><span class="uae">Chanel Dubai Mall</span><span class="uae">Rivoli Group</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 05 Auto -->
+<article class="industry" id="auto">
+  <h3>05 · Auto Dealerships</h3>
+  <div class="who">Showroom sales execs · pre-owned car evaluators · luxury car relationship managers · finance managers</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A Maruti Arena showroom does 60+ walk-ins on a Sunday. A Mercedes-Benz dealership in Gurgaon converts a deal across 3–5 visits and 6–10 weeks. CARS24 evaluators visit homes daily for buy-and-resell. Test drive conversion is the holy grail KPI.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value"><span class="lack-quote">Walk-ins write their name on a paper register. The exec calls them once, gets ignored, and the lead dies. Dealership CRM (DMS), OEM CRM, and the sales rep's spreadsheet don't sync. Marketing has no clue who walked into which showroom.</span></div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Sales exec's profile under the OEM brand (Mercedes, BMW, Audi, Tata, Mahindra). Includes virtual brochure, 360° interior, finance EMI calculator, test drive booking. Tap fires retargeting on Instagram for that specific model — Mercedes ad chases the prospect home. Voice notes after the test drive log: trade-in vehicle, financing tolerance, colour preference, family decision-maker. Syncs to dealer DMS and OEM Salesforce.</div></div>
+
+  <div class="row"><div class="label">Bonus</div><div class="value">Pre-owned (CARS24, Spinny, Cars India) is even stronger because evaluators visit the customer's home — high-trust environment, perfect for the tap-and-talk loop.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>CARS24 — pipeline</span><span>Spinny</span><span>Cars24 Lite</span><span>OLX Autos India</span><span>Maruti Suzuki Arena/Nexa dealers</span><span>Hyundai dealers</span><span>Tata Motors (Concorde, Adonis)</span><span>Mahindra dealerships</span><span>Kia (Lakshmi Kia, Pinky Kia)</span><span>MG Motor</span><span>Volkswagen India dealers</span><span>Skoda</span><span>Toyota (Galaxy, Lakshmi Toyota)</span><span>Honda Cars India</span><span>Mercedes-Benz (T&T, Auto Hangar, Silver Arrows)</span><span>BMW (Bird, Krishna Automobiles, Deutsche Motoren)</span><span>Audi (Aadya, Kunal)</span><span>Jaguar Land Rover dealers</span><span>Lexus dealers</span><span>Porsche India</span><span>Royal Enfield premium showrooms</span><span>BAS (BMW Motorrad)</span><span class="uae">Al Tayer Motors (UAE)</span><span class="uae">AGMC BMW Dubai</span><span class="uae">Al Nabooda Automobiles</span><span class="uae">Arabian Automobiles (Nissan/Infiniti UAE)</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 06 DSA / Mortgage -->
+<article class="industry" id="dsa">
+  <h3>06 · Mortgage & Loan DSAs (Direct Sales Agents)</h3>
+  <div class="who">Home loan field agents · personal loan executives · LAP & business loan advisors</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">DSAs are commission-only foot-soldiers for HDFC, ICICI, Axis, Bajaj Finserv, IIFL Home Loans. They camp at builder offices, chase walk-ins, run cold calls. A solid DSA closes 3–5 home loans a month. The DSA channel originates 40%+ of HDFC's home loan book.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">DSAs operate from WhatsApp. They send borrower documents over WhatsApp, get them lost, redo paperwork. Conversion drops because the borrower forgets which agent of which bank they were talking to. No CRM. No retargeting. No way to send the borrower a reminder ad.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">DSA profile under the bank's brand: rate calculator, document checklist, eligibility checker, "Apply now" form. Tap = borrower gets a clean experience, joins the bank's retargeting audience for "low rate home loan" ads. Voice notes after the home visit log property value, age of the borrower, salary slip status, co-applicant details. Pushes structured data to the bank's loan origination system.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>HDFC Bank DSA channel</span><span>ICICI Bank</span><span>Axis Bank</span><span>Kotak Mahindra</span><span>IndusInd</span><span>HDFC Ltd Home Loans</span><span>LIC Housing Finance</span><span>PNB Housing — pipeline</span><span>Bajaj Finserv</span><span>Tata Capital</span><span>L&T Finance</span><span>Cholamandalam</span><span>Aditya Birla Capital</span><span>Piramal Capital</span><span>IIFL Home Finance</span><span>Shubham Housing</span><span>Aavas Financiers</span><span>Aptus Value</span><span>Andromeda Loans</span><span>BankBazaar</span><span>Paisabazaar</span><span>BASIC Home Loan</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 07 Hotel MICE -->
+<article class="industry" id="hotel">
+  <h3>07 · Hotel & MICE Sales</h3>
+  <div class="who">Sales managers · MICE specialists · F&B booking managers · banquet sales · destination sales (international)</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">Every Marriott, Taj, Oberoi, ITC has a 4–8 person sales team chasing corporate offsites, weddings, conferences. They attend bridal shows, corporate events, embassy meetings. Each RFP is competitive — Marriott vs. Hyatt vs. Accor for the same Cognizant offsite.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Sales managers carry property decks on iPads. They send PDF brochures via email after the meeting. Corporate planners never get retargeted. When the sales manager moves from Hyatt to Marriott (high churn category), the rolodex moves with them.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Sales manager's profile = property tour video, banquet capacities, F&B slideshow, sample BEO, RFP form. Tap = corporate planner enters the property's Meta retargeting audience for "luxury offsite" or "wedding venue" ads. Voice notes after the site inspection log: number of PAX, dates, AV needs, decor inclusions, room block, billing terms. CRM sync to Delphi or Salesforce. Manager dashboard sees which properties are converting which segments.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Taj Hotels (IHCL)</span><span>Oberoi Hotels</span><span>ITC Hotels</span><span>Hyatt India</span><span>Marriott India (JW, Westin, Sheraton, Le Meridien, Courtyard, Ritz-Carlton)</span><span>Accor (Sofitel, Pullman, Novotel, Mercure)</span><span>Hilton</span><span>Radisson</span><span>The Leela</span><span>Lemon Tree</span><span>Roseate Hotels</span><span>Postcard Hotels</span><span>SeleQtions</span><span>Lalit Suri Hospitality</span><span>Shangri-La (Bengaluru, Delhi)</span><span>Four Seasons Mumbai/Bengaluru</span><span class="uae">Atlantis The Palm</span><span class="uae">Address (Emaar Hospitality)</span><span class="uae">Vida Hotels</span><span class="uae">Jumeirah</span><span class="uae">Rotana</span><span class="uae">Anantara</span><span class="uae">Burj Al Arab</span><span class="uae">Mandarin Oriental Jumeira</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 08 Pharma -->
+<article class="industry" id="pharma">
+  <h3>08 · Pharma / Medical Representatives</h3>
+  <div class="who">Medical reps (MRs) · area business managers · KAMs · CRO/CDMO sales</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">An MR at Sun Pharma or Cipla makes 8–15 doctor visits per day. Each call is 5–7 minutes — pitch a molecule, leave samples, log it. Compliance is brutal: UCPMP code, no gifts, sample tracking, prescription audit. India has ~1 million MRs across pharma + medical devices.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Existing pharma SFA tools (Veeva, PharmaACE, Trillium) are heavy desktop apps. MRs scribble notes on a printed Daily Call Report. Doctor's prescription patterns aren't tied back to specific MR visits. High MR turnover. Field activity verification is the manager's nightmare.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">MR's profile = brand product list with clinical evidence, e-detailing slides, sample request form, e-prescription pad. Tap during clinic visit = location-stamped, time-stamped — manager sees activity without GPS-stalking. Voice notes after the call log: doctor's main objection, sample SKUs left, peer-product mentioned, prescribing rate. Syncs to Veeva or pharma in-house SFA.</div></div>
+
+  <div class="row"><div class="label">Caveat</div><div class="value">Compliance: pharma marketing is governed by UCPMP/EFPIA codes. The remarketing pixel needs careful handling — to doctors directly retargeting branded medication ads is legally restricted in India and the EU. Position pixels for medical device, hospital diagnostic, OTC, nutraceutical sub-segments instead.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Sun Pharma</span><span>Cipla</span><span>Dr Reddy's</span><span>Lupin</span><span>Aurobindo</span><span>Zydus Lifesciences</span><span>Mankind Pharma</span><span>Glenmark</span><span>Torrent Pharma</span><span>Alkem Labs</span><span>Abbott India</span><span>Pfizer India</span><span>GSK Pharma India</span><span>Sanofi India</span><span>Novartis India</span><span>USV</span><span>Alembic</span><span>Macleods</span><span>Intas</span><span>Eris Lifesciences</span><span>Medical devices: Medtronic India</span><span>BD India</span><span>Boston Scientific</span><span>Stryker India</span><span>J&amp;J Medical Devices</span><span class="uae">Julphar (UAE)</span><span class="uae">Pharmax</span><span class="uae">Globalpharma</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- ============================== -->
+<!-- A-TIER -->
+<!-- ============================== -->
+<section style="margin-top: 96px;">
+  <div class="tier-banner a">A-Tier · Strong fit, longer sales cycle</div>
+  <h2><span class="num">A</span>Industries with strong personal-brand pull</h2>
+  <p class="h2-sub">Lower meeting volume than S-tier, but each meeting is high-stakes and personal credibility carries the deal.</p>
+</section>
+
+<!-- 09 Consulting -->
+<article class="industry" id="consulting">
+  <h3>09 · Consulting Firms (MBB, Big 4, Boutique Strategy)</h3>
+  <div class="who">Partners · principals · engagement managers · solo strategy consultants</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A McKinsey partner does 200+ external meetings a year — boards, panels, client lunches, alumni events. Personal brand drives 70%+ of new business. Boutique strategy consultants (Praxis, RedSeer, 1Lattice) live or die on partner reputation.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Partners use a three-prong stack: paper card → LinkedIn add → assistant emails calendar invite. Half the cards exchanged at Davos or Aspen ideas conference die. Conference retargeting is impossible. Junior consultants attending recruiting events have nothing to differentiate themselves with.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Partner's profile = published reports, podcast appearances, calendar booking, case study list (anonymised), recent panel clips. Tap = client added to firm's Meta + LinkedIn retargeting for thought leadership. Voice notes after the BD breakfast log: prospect's named priorities, GC budget cycle, decision committee, fee tolerance. Pushes to Salesforce.</div></div>
+
+  <div class="row"><div class="label">Bonus</div><div class="value">Boutique strategy partners (often ex-MBB) are perfect ₹3,000 D2C buyers — they want a card that doesn't say "Powered by TapOnn."</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>McKinsey India</span><span>BCG India</span><span>Bain India</span><span>Deloitte</span><span>EY-Parthenon</span><span>KPMG</span><span>PwC Strategy&</span><span>Accenture Strategy</span><span>Kearney</span><span>Oliver Wyman</span><span>Roland Berger</span><span>ZS Associates</span><span>Praxis Global Alliance</span><span>RedSeer</span><span>1Lattice</span><span>Avalon Consulting</span><span>Tata Strategic (now Tata Consulting Engineers)</span><span>Avendus Capital</span><span>Alvarez &amp; Marsal</span><span>FTI Consulting</span><span>AlixPartners</span><span>Bain Capital Advisors</span><span>Boston Consulting Group Digital Ventures</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 10 Business Schools -->
+<article class="industry" id="bschool">
+  <h3>10 · Business Schools &amp; Higher Ed</h3>
+  <div class="who">Faculty · admissions counsellors · placement teams · executive education sales · alumni relations</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">Schools attend GMAC summits, ISB outreach roadshows, NMAT/CAT counselling fairs, corporate L&D events. Faculty travel for guest lectures, conference papers, executive program pitches. Pratham Mittal/Masters' Union/Tetr already an active AceCard project — a proven institutional template.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Schools print 200 paper cards for each event. The brand identity dilutes — every faculty member's card is the same template, but their LinkedIn, their notes, their lead capture is private. Admissions teams have no way to retarget the parent who walked into a stall at Times of India education fair.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Bulk admin dashboard pre-configures 200+ faculty cards with consistent branding (the Masters' Union playbook). Faculty can personalise within the brand frame — their profile loads with the school's hero image, school colours, their bio, their papers, the program brochure. Every fair attendee tapping a card is added to the school's Meta retargeting for that program. Admissions counsellors voice-capture after every walk-in interview.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Masters' Union — incumbent partner</span><span>Tetr College of Business — incumbent</span><span>ISB Hyderabad/Mohali</span><span>IIM Ahmedabad / Bangalore / Calcutta / Indore / Lucknow / Kozhikode</span><span>MDI Gurgaon</span><span>XLRI Jamshedpur</span><span>SPJIMR Mumbai</span><span>FMS Delhi</span><span>Great Lakes</span><span>BITS Pilani / Goa / Hyderabad</span><span>Plaksha University</span><span>KREA</span><span>FLAME</span><span>Ashoka</span><span>Shiv Nadar University</span><span>OP Jindal</span><span>Manipal University</span><span>Bennett University</span><span>VIT Vellore</span><span>SRM</span><span class="uae">NYU Abu Dhabi</span><span class="uae">AUS</span><span class="uae">Hult Dubai</span><span class="uae">Heriot-Watt Dubai</span><span class="uae">Khalifa University</span><span>INSEAD</span><span>LBS</span><span>Wharton (alumni networks)</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 11 Wedding Planners -->
+<article class="industry" id="weddings">
+  <h3>11 · Wedding Planners &amp; Event Management</h3>
+  <div class="who">Wedding planners · MICE producers · corporate event agencies · luxury concierge teams</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A high-end wedding planner (Vandana Mohan, Devika Narain, Wedniksha) coordinates 50+ vendors across 4–8 events per wedding. Avg ticket size: ₹2–10 Cr. The Ambani-Merchant template has expanded the category by 3–5×.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Planners hand families paper cards. Vendors collect planner cards. Inquiries die in WhatsApp. There's no system pushing "we did Ambani's mehendi" portfolio to the next family at the next venue showcase.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Planner's profile = signature events portfolio video, vendor partner list, FAQ, intake form, booking calendar. Tap = retarget the bride's family with portfolio reels on Instagram. Voice notes after the family meeting log: wedding date, location list, headcount, themes, budget tier, decision-maker (mother vs. father vs. couple), in-laws' aesthetic.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>The Wedding Design Company (Vandana Mohan)</span><span>Devika Narain &amp; Co</span><span>Mickey Contractor &amp; team</span><span>Wedniksha</span><span>Q Events</span><span>Showtime Events</span><span>Wizcraft International</span><span>Cineyug</span><span>Percept</span><span>Bigfat Wedding Co</span><span>WedMeGood agency partners</span><span>FNP Weddings &amp; Events</span><span>Shaadi Squad</span><span>FountainHead Events</span><span>EventCrafter</span><span>EM&amp;G</span><span>Tamarind Global</span><span>Mahala Creative Studio</span><span class="uae">Hitched &amp; Co (UAE)</span><span class="uae">The Wedding Bazaar</span><span class="uae">Lovely Couple Weddings</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 12 Aesthetic Healthcare -->
+<article class="industry" id="aesthetics">
+  <h3>12 · Aesthetic, Cosmetic &amp; Specialist Healthcare</h3>
+  <div class="who">Dermatologists · cosmetic surgeons · IVF specialists · dentists · trichologists · aesthetic clinic chains</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">Aesthetic medicine in India is now a ₹10,000 Cr+ category. Kaya, Oliva, ISAAC, Cocoona compete for the same Instagram-discovered patient. IVF clinics (Bloom, Nova, Indira) compete for desperate couples on Google. A single botox patient is worth ₹50K+ a year for 5+ years.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Patient walks into the clinic, fills a paper form, attends a 30-min consult, and most never come back. The clinic gets the patient via paid Instagram ads but loses re-engagement because they have no pixel-based retargeting connected to the in-person consult. Doctors hand business cards to peer doctors at conferences and never follow up.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Doctor / clinic profile = qualifications, before/after gallery, treatment menu, online appointment booking, patient testimonials. Tap during walk-in = patient enters Meta + Google retargeting for "follow-up consult" or "package deal" ads. Voice notes after the consult log: skin type, concern, recommended protocol, financial sensitivity, next visit. Pushes to clinic CRM (Cliniko, Practo Pro, Zocket).</div></div>
+
+  <div class="row"><div class="label">Caveat</div><div class="value">Health/medical retargeting on Meta requires careful ad-creative phrasing under their Sensitive Categories rules. Pixel itself fires fine — campaign creative needs the right language.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Apollo Hospitals</span><span>Fortis</span><span>Max Healthcare</span><span>Manipal</span><span>Medanta</span><span>Narayana Health</span><span>Kaya Skin Clinic</span><span>Oliva Skin &amp; Hair</span><span>Dermalife</span><span>VLCC</span><span>La Clinique</span><span>ISAAC Luxe</span><span>Nirvana Beauty</span><span>Cocoona Centre Dubai</span><span>Cloudnine Hospitals</span><span>Bloom IVF</span><span>Nova IVF Fertility</span><span>Indira IVF</span><span>Motherhood Hospitals</span><span>Clove Dental</span><span>Apollo White Dental</span><span>Sabka Dentist</span><span>Plus Dental</span><span>Dr Batra's</span><span class="uae">American Hospital Dubai</span><span class="uae">Mediclinic</span><span class="uae">NMC Healthcare</span><span class="uae">Aster Healthcare</span><span class="uae">Burjeel Holdings</span><span class="uae">Saudi German Hospital</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 13 Architects -->
+<article class="industry" id="architects">
+  <h3>13 · Architects &amp; Interior Designers</h3>
+  <div class="who">Architects · interior designers · landscape architects · home renovation chains · D2C interior platforms</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A boutique architect's portfolio is the entire pitch. Studios like Studio Lotus, Morphogenesis, Khosla Associates win on aesthetic. Mid-market players (Livspace, HomeLane) run sales like SaaS — designers visiting homes pitching modular kitchens.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Architects hand out beautiful paper cards. The link to their portfolio is buried. Lead capture forms on Squarespace die quickly. They cannot retarget a homeowner who came to a curated open house. Livspace designers visit 4–6 homes a day with a tablet and a quote sheet — every walk-out is a lost lead.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Designer profile = video walkthroughs of past projects, design philosophy, mood board library, BHK quote calculator, calendar booking, press features. Tap during the home visit = homeowner gets retargeted with project portfolio reels for the next 30 days. Voice notes log spatial requirements, family lifestyle, BOQ ceiling, style references named. Sync to Livspace/HomeLane CRM or Notion-based studio tracker.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Studio Lotus</span><span>Morphogenesis</span><span>Sanjay Puri Architects</span><span>SP+a (Sameep Padora)</span><span>Khosla Associates</span><span>RMA (Rahul Mehrotra)</span><span>Hafeez Contractor</span><span>Anagram Architects</span><span>Beyond Designs</span><span>Annkur Khosla Studio</span><span>Studio MRJ</span><span>Renesa</span><span>Livspace</span><span>HomeLane</span><span>Design Cafe</span><span>Bonito Designs</span><span>The Architects Diary feature studios</span><span class="uae">Lulie Fisher Design Studio</span><span class="uae">U+A</span><span class="uae">Brewer Smith Brewer Group</span><span class="uae">LW Design</span><span class="uae">Bishop Design</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 14 Law Firms -->
+<article class="industry" id="legal">
+  <h3>14 · Law Firms (Corporate, Litigation, Compliance)</h3>
+  <div class="who">Senior partners · BD heads · solo counsel · in-house GCs (as buyers, not users)</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">Top tier Indian firms (SAM, AZB, CAM, Khaitan) run on partner BD. A Senior Partner runs 30 GC dinners, 10 conference panels, and 100 alumni events a year. Each interaction is potential mandate-flow. Solo counsel (especially arbitration, family office advisory) live entirely on personal reputation.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Law firms are conservative about marketing (Bar Council restrictions). But Bar Council allows informational websites and accurate profiles. Partners hand paper cards at events. Following up is informal. There is no retargeting layer for thought leadership distribution.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Partner profile = practice areas, recent published work, panel appearances, calendar (gated), Bar registrations. Tap = GC enters firm's LinkedIn retargeting for white papers and webinars. Voice notes after the meeting log: regulatory headache GC named, deal pipeline, fee tolerance, peer-firm currently retained. Bar Council compliant if framed as "professional information," not advertising.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Shardul Amarchand Mangaldas</span><span>Cyril Amarchand Mangaldas</span><span>AZB &amp; Partners</span><span>Khaitan &amp; Co</span><span>Trilegal</span><span>JSA</span><span>Luthra &amp; Luthra</span><span>IndusLaw</span><span>Nishith Desai Associates</span><span>S&amp;R Associates</span><span>J Sagar Associates</span><span>Saraf and Partners</span><span>Talwar Thakore</span><span>Kochhar &amp; Co</span><span>Argus Partners</span><span>Phoenix Legal</span><span>Economic Laws Practice (ELP)</span><span class="uae">Al Tamimi &amp; Co</span><span class="uae">Hadef &amp; Partners</span><span class="uae">Habib Al Mulla &amp; Partners</span><span class="uae">BSA Ahmad Bin Hezeem</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 15 PR / Ad -->
+<article class="industry" id="pr">
+  <h3>15 · PR &amp; Advertising / Marketing Agencies</h3>
+  <div class="who">Account directors · ECDs · agency BD heads · digital marketing leads · creative founders</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">Agencies pitch CMOs constantly. Each new business meeting requires showing case studies, sizzle reels, social proof. India has 2,500+ digital marketing agencies competing for the same Series B brand budgets. Talent (account leads) churn between agencies every 18 months — taking client relationships with them.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Agency reps email a 40-slide deck after the meeting. Most never get opened. There's no retargeting on the CMO who took the meeting. The senior creative who left to start their own agency cannot rebrand fast.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Agency exec profile = client logos (with permission), sizzle reel, AOR/digital case studies, awards, calendar booking. Tap = brand manager joins agency's LinkedIn + Meta retargeting for case studies. Voice notes after pitch capture: brand priorities, season campaigns, RFP timeline, decision committee, incumbent agency. Trackable links show which CMO actually opened which case study after the meeting.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Edelman India</span><span>Weber Shandwick India</span><span>Adfactors PR</span><span>Concept PR</span><span>Genesis BCW</span><span>Avian WE</span><span>MSL Group</span><span>Madison PR</span><span>The Practice (Adfactors)</span><span>80dB</span><span>Six Degrees PR</span><span>Value 360</span><span>Ogilvy India</span><span>FCB Ulka</span><span>McCann Worldgroup</span><span>Wunderman Thompson</span><span>BBDO India</span><span>Lowe Lintas</span><span>DDB Mudra</span><span>Leo Burnett</span><span>Dentsu Creative India</span><span>GroupM</span><span>WATConsult</span><span>Schbang</span><span>AdGlobal360</span><span>Sociowash</span><span>BC Web Wise</span><span>The Glitch</span><span>Webchutney (Dentsu)</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 16 VC / PE / IB -->
+<article class="industry" id="vc">
+  <h3>16 · VC, PE, Investment Banking, Family Offices</h3>
+  <div class="who">Investment associates · VPs · partners · family office advisors · M&amp;A bankers · LP relations</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A VC partner takes 15–25 founder meetings a week. An IB associate at Avendus does 30+ corporate site visits a month. A family office gatekeeper meets 50+ funds a year. Trust and credibility carry every conversation. Snowball, the founders' parallel venture, is built on this exact ICP.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Investors swap cards at TiE Summit, Eximius, Surge events. Note-taking is paper-based. Founder context fades within 48 hours. Cold inbound to a partner's email rarely surfaces. Snowball ICP is exactly this group.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Investor profile = thesis, portfolio companies, podcast/articles, LP-deck request form, calendar booking. Tap = founder enters fund's LinkedIn retargeting for portfolio updates and thought leadership. Voice notes after the founder pitch capture: TAM, ARR, raise size, stage, team quality, follow-up Y/N, intro asks. Pushes to Affinity, Attio, Streak — already integrated patterns.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Peak XV (Sequoia India)</span><span>Accel India</span><span>Lightspeed India</span><span>Z47 (ex-Matrix)</span><span>SAIF / Elevation</span><span>Nexus Venture Partners</span><span>Kalaari</span><span>Blume Ventures</span><span>Stellaris Venture Partners</span><span>Iron Pillar</span><span>India Quotient</span><span>3one4 Capital</span><span>Activate VC — priority target</span><span>Neon Fund</span><span>Antler India</span><span>Speciale Invest</span><span>Inflection Point Ventures</span><span>Eight Roads</span><span>Norwest Venture Partners</span><span>Bessemer India</span><span>KKR India</span><span>TPG</span><span>General Atlantic</span><span>Carlyle India</span><span>Avendus Capital</span><span>Arpwood</span><span>Spark Capital</span><span>JM Financial</span><span>Edelweiss</span><span>ICICI Securities</span><span>Ambit</span><span>Centrum</span><span>Premji Invest</span><span>RNT Associates</span><span>Catamaran</span><span>Burman family office</span><span>Wadhwa Capital</span><span class="uae">Mubadala</span><span class="uae">ADIA</span><span class="uae">ADQ</span><span class="uae">Lunate</span><span class="uae">Royal Group</span><span class="uae">G42</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 17 Travel -->
+<article class="industry" id="travel">
+  <h3>17 · Travel — B2B Agents, Luxury DMCs, Corporate Travel</h3>
+  <div class="who">B2B travel agents · DMC reps · corporate travel managers · MICE specialists · luxury travel curators</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">B2B travel runs on relationships. Agents attend ATM Dubai, WTM London, OTM Mumbai, SATTE — 1,500+ exhibitors per show. Each booth conversation is a potential 6-figure account. DMCs (destination management companies) compete on specific country expertise.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Reps come back from a 4-day trade show with 800 paper cards. Half can't be matched to a face. The "I'll send you the rates" email gets buried. There is no Meta retargeting on a hotel buyer who walked your booth.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Rep's profile = destination expertise, hotel partner list, sample itineraries, ATM badge holder, MICE deck request. Tap during booth chat = buyer enters Meta retargeting for that destination. Voice notes between booth visits log: company name, PAX, dates, budget, decision-maker, follow-up timeline. Voice processed inside the show; hot leads sent same evening.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Thomas Cook India</span><span>MakeMyTrip MyBiz</span><span>EaseMyTrip — validation logo</span><span>Yatra B2B</span><span>Cleartrip</span><span>Cox &amp; Kings</span><span>FCM Travel</span><span>BCD Travel India</span><span>CWT (ex-Carlson Wagonlit)</span><span>TUI India</span><span>Travel Boutique Online (TBO)</span><span>TravClan</span><span>Riya Travel</span><span>Le Passage to India</span><span>Sita India</span><span>Lotus Destinations</span><span>Indian Holidays</span><span>Travelogy India</span><span class="uae">Arabian Adventures</span><span class="uae">Desert Adventures</span><span class="uae">Alpha Tours</span><span class="uae">Net Tours</span><span class="uae">Gulf Ventures</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 18 Photo -->
+<article class="industry" id="photo">
+  <h3>18 · Photographers &amp; Videographers</h3>
+  <div class="who">Wedding photographers · commercial / fashion shooters · corporate event teams · content studios</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A top wedding photographer (Stories, The Wedding Filmer, Israni) does 40–80 weddings a year at ₹3–25 lakh per project. Discovery is 80% Instagram, 20% planner referrals. Booking happens after a face-to-face client meeting where they show portfolio.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Photographer hands a card at a wedding showcase. The bride saves contact, forgets the studio name, books the planner's referral instead. There's no retargeting layer. The studio name on Google never gets searched again.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Photographer profile = signature reel, packages by city, behind-the-scenes, calendar booking, intake form ("wedding date / location / family size"). Tap = couple enters Meta retargeting for portfolio reels for 60 days. Voice notes after the consult log: dates, destinations, family aesthetic, budget tier, key people to feature.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Stories by Joseph Radhik</span><span>The Wedding Filmer</span><span>Vivek Krishnan</span><span>Shutterdown (Lakshya Chawla)</span><span>House on the Clouds</span><span>Israni Photography</span><span>Cupcake Productions</span><span>Knottedwheels</span><span>Shubh Photography</span><span>WeddingNama</span><span>Camera Crew</span><span>Bharat Sikka (commercial)</span><span>Bandeep Singh (commercial)</span><span>Blur Pixels</span><span>Photodrop</span><span class="uae">Studio LIIT (UAE)</span><span class="uae">Maya Marechal</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 19 Recruiters -->
+<article class="industry" id="hr">
+  <h3>19 · Recruiters &amp; Executive Search</h3>
+  <div class="who">Retained search partners · contingent recruiters · talent agency reps · entertainment/sports talent agents</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A retained search partner at EMA, Heidrick or Egon Zehnder closes 6–12 mandates a year, each ₹15–60 L. They meet 200+ candidates per mandate, plus the GC client. Contingent recruiters at HuQuo or Quess churn through 50 candidate calls a day.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Recruiters live in spreadsheets and LinkedIn DMs. Candidate context (current package, family situation, why willing to move) is in the recruiter's head. When the recruiter switches firms, the candidate Rolodex moves with them.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Recruiter profile = mandates handled (anonymised), past placements at company logos, calendar, candidate intake form. Tap during meet-up = candidate joins the recruiter's LinkedIn audience for relevant role ads. Voice notes after the conversation log: target package, notice period, deal-breakers, why moving, family in city.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>EMA Partners</span><span>Heidrick &amp; Struggles India</span><span>Egon Zehnder India</span><span>Korn Ferry India</span><span>Spencer Stuart</span><span>Russell Reynolds</span><span>Boyden</span><span>Stanton Chase</span><span>HuQuo</span><span>ABC Consultants</span><span>Ciel HR Services</span><span>Quess Corp</span><span>Randstad India</span><span>Vito India</span><span>GlobalHunt</span><span>Antal International</span><span>Talent agencies: KWAN</span><span>Cornerstone Sport &amp; Entertainment</span><span>IOS Sports &amp; Entertainment</span><span>RISE Worldwide</span><span>JSW Sports talent</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- ============================== -->
+<!-- B-TIER -->
+<!-- ============================== -->
+<section style="margin-top: 96px;">
+  <div class="tier-banner b">B-Tier · Situational fit, smaller market</div>
+  <h2><span class="num">B</span>Industries that fit but with caveats</h2>
+  <p class="h2-sub">Lower in priority because either deal sizes are smaller, the buyer persona is harder, or compliance creates friction. Worth listing because they will appear in inbound.</p>
+</section>
+
+<!-- 20 Media -->
+<article class="industry" id="media">
+  <h3>20 · Media Houses</h3>
+  <div class="who">Ad sales reps · branded content sales · reporters/anchors · OTT business development · podcast hosts</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">Ad sales is the actual D2C-card use case here, not journalism. A Times of India brand solutions rep sells branded content packages to brand managers. NDTV, India Today, Network18 sell ad inventory. OTTs (Hotstar, JioCinema) pitch to agencies. Each rep does 5+ pitches per week.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Reps walk into agency offices with an iPad and a rate card PDF. Brand manager forgets the deal. Reporters who carry cards are usually doing it for source-relationship reasons — not a strong card-buyer profile.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Ad sales rep profile = inventory rate card, branded content samples, recent campaigns, agency package deck. Tap = brand manager retargeted with audience-data infographics. Voice notes log brand priorities, RFP cycle, budget tier. Reporters get a credibility profile (recent stories, awards) but lower commercial intensity.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Times of India / Bennett Coleman</span><span>HT Media</span><span>NDTV</span><span>India Today Group</span><span>Republic Media</span><span>Network18 / Moneycontrol</span><span>Economic Times</span><span>Mint / HT</span><span>Bloomberg India</span><span>Forbes India</span><span>Inc42</span><span>YourStory</span><span>The Ken</span><span>The Morning Context</span><span>Star (Disney+)</span><span>Sony</span><span>Zee</span><span>Sun TV</span><span>JioCinema</span><span>Hotstar</span><span>BookMyShow Stream</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 21 CA -->
+<article class="industry" id="ca">
+  <h3>21 · CAs, Tax Advisors, Outsourced CFOs</h3>
+  <div class="who">CA partners · tax/legal compliance teams · virtual CFO services · GST consultants</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">SMB founders shop 3–5 CA firms before signing one. Annual retainer of ₹3–15 L per client. CAs win mandate via founder networks, ICAI events, founder podcasts. Modern fintech-y firms (Treelife, Practus, FinKraft) are aggressive on personal brand.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Partner profile = ICAI no., services (audit, tax, FEMA, GST, ROC), industries served, fee structure indicator, calendar. Tap = founder enters Meta retargeting for content like "5 GST mistakes startups make." Voice notes after intake meeting log: business model, current compliance gaps, fee tolerance, decision committee.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Big 4 (Deloitte/EY/KPMG/PwC) — already in consulting</span><span>BDO India</span><span>Grant Thornton Bharat</span><span>RSM India</span><span>Walker Chandiok</span><span>SS Kothari Mehta</span><span>S R Batliboi (EY affiliate)</span><span>Lodha &amp; Co</span><span>Khimji Kunverji</span><span>Singhi &amp; Co</span><span>Treelife</span><span>Practus</span><span>FinShell</span><span>FinKraft</span><span>QuickBooks-only firms (Razorpayx Books partners)</span><span class="uae">PKF UAE</span><span class="uae">Crowe Mak</span><span class="uae">UHY James Chartered Accountants</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 22 Building Materials -->
+<article class="industry" id="build">
+  <h3>22 · Building Materials &amp; Industrial Sales</h3>
+  <div class="who">Sales engineers · architect-engagement teams · dealer-relations execs</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A Kohler architect-relations rep visits 8 architectural studios a week pitching new SKUs. A Kajaria dealer-relations rep runs through 200 dealers a month. Specs (cement, steel, paint, sanitaryware) are decided at the architect's desk months before the construction site is operational.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Reps carry catalogs and sample folders. Architect saves the spec sheet, forgets the rep, specifies the competing brand on the next project. No retargeting on the architect.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Rep profile = product catalog video, project portfolio (where the brand was used), datasheet PDFs, sample request form. Tap = architect enters retargeting audience for new SKU drops. Voice notes after spec meeting log: project name, BoQ, architect's current preferred brand, decision timeline.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>UltraTech Cement</span><span>Ambuja</span><span>ACC</span><span>Shree Cement</span><span>Dalmia</span><span>JK Cement</span><span>Tata Steel</span><span>JSW Steel</span><span>ArcelorMittal Nippon Steel</span><span>SAIL</span><span>Asian Paints</span><span>Berger</span><span>Kansai Nerolac</span><span>Akzo Nobel (Dulux)</span><span>Indigo Paints</span><span>Hindware</span><span>Cera</span><span>Kohler India</span><span>Jaquar</span><span>Toto India</span><span>Roca</span><span>Grohe (Lixil)</span><span>Kajaria</span><span>Somany</span><span>Orientbell</span><span>Asian Granito</span><span>Greenply</span><span>CenturyPly</span><span>Greenlam</span><span>Hettich India</span><span>Hafele</span><span>Blum</span><span>Ozone Hardware</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 23 Study Abroad -->
+<article class="industry" id="studyabroad">
+  <h3>23 · Study Abroad / Education Consultants</h3>
+  <div class="who">EC counsellors · GMAT/GRE coaches · profile-building advisors</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">India sends ~1.3 M students abroad annually. ECs run 60-min counselling sessions, then chase the student for 6–12 months through application cycles. ATU 2026 has 50+ overseas universities running booth recruitment.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Counsellor profile = success stories with admit logos, packages, application portal link, calendar. Tap = student enters Meta retargeting for university-specific deadlines and webinars. Voice notes after counselling capture: target schools, GRE/GMAT score, budget, family decision dynamics, work-experience profile.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Leverage Edu</span><span>ApplyBoard India</span><span>IDP Education</span><span>IELTS India</span><span>Princeton Review India</span><span>Manya Education</span><span>Edwise International</span><span>Career Mosaic</span><span>Jamboree Education</span><span>Leap Scholar</span><span>GradRight</span><span>GeeBee Education</span><span>Yocket</span><span>Crimson Education India</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 24 Fitness -->
+<article class="industry" id="fitness">
+  <h3>24 · Fitness Coaches, Nutritionists, Wellness</h3>
+  <div class="who">Personal trainers · nutritionists · yoga teachers · wellness retreat sales · gym chain reps</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A senior trainer at Cult.fit or a private trainer in Bandra has a personal client list of 30–80. Wellness retreats (Ananda, Vana, Six Senses) sell ₹3–10 lakh packages through one-on-one consults at health expos.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Coach profile = transformation gallery, packages, testimonials, calendar, intake form. Tap = client enters retargeting for weekly content drip. Voice notes after consult log: goals, injury history, dietary preferences, package committed.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Cult.fit</span><span>Anytime Fitness India</span><span>Gold's Gym India</span><span>F45 India</span><span>Talwalkars</span><span>Ananda in the Himalayas</span><span>Vana Wellness</span><span>Six Senses Vana</span><span>Atmantan</span><span>Niraamaya</span><span>SOUKYA</span><span>Yasmin Karachiwala (private)</span><span>Rujuta Diwekar (nutritionist)</span><span>Luke Coutinho</span><span>Pooja Makhija</span><span class="uae">Fitness First UAE</span><span class="uae">Gold's Gym UAE</span><span class="uae">F45 UAE</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 25 Speakers -->
+<article class="industry" id="speakers">
+  <h3>25 · Speakers, Authors, Coaches, Creators</h3>
+  <div class="who">Keynote speakers · LinkedIn creators · executive coaches · podcast hosts · published authors</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A senior keynote speaker (Sandeep Maheshwari, Vivek Bindra, Ankur Warikoo) charges ₹3–25 L per gig. Discovery is at corporate events and business summits. Booking is via agent or DMs. Demand is highly correlated with stage visibility.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Speaker profile = sizzle reel, topic list, past clients (logos), media kit download, calendar, books. Tap during the green-room or post-keynote = HR head joins the speaker's audience for booking-related content. Voice notes log organiser priorities, season needs, fee tolerance.</div></div>
+
+  <div class="row"><div class="label">Bonus</div><div class="value">Snowball ICP overlaps strongly here — speakers, founders, VCs all want the AceCard for their personal brand.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Speaking Tree</span><span>GlobalSpeakers</span><span>Inspire Speakers Bureau</span><span>Mindler Speakers</span><span>Sandeep Maheshwari</span><span>Vivek Bindra</span><span>Sonu Sharma</span><span>Gaur Gopal Das</span><span>Ankur Warikoo</span><span>Nikhil Kamath (Zerodha founder, occasional)</span><span>Aman Gupta (boAt)</span><span>Kunal Shah (CRED)</span><span>Author circuit: Chetan Bhagat, Amish Tripathi, Devdutt Pattanaik</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 26 NGO -->
+<article class="industry" id="fundraising">
+  <h3>26 · NGO Fundraising / Donor Relations</h3>
+  <div class="who">Development officers · CSR liaison teams · donor-relationship managers</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">Indian NGOs raised ~₹25,000 Cr in private donations in FY 2025. Top NGOs (Akshaya Patra, Pratham, Smile Foundation) have field development officers meeting HNI donors and CSR heads of corporations.</div></div>
+
+  <div class="row"><div class="label">What's broken</div><div class="value">Donor follow-up is paper trails and emails. Donors hop NGOs because they can't tell which one to trust. There's no programmatic way to retarget a CSR head with impact stories after a face-to-face meeting.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Officer profile = NGO impact stats, project list, 80G certificate, donate-now link, video impact stories. Tap = donor enters retargeting audience for impact-story content. Voice notes after the donor meeting log: donation tier, cause priority, organisation policy on tax planning, decision-makers.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Akshaya Patra</span><span>GiveIndia</span><span>Smile Foundation</span><span>Pratham Education</span><span>Magic Bus</span><span>Teach For India</span><span>Nanhi Kali</span><span>CRY (Child Rights and You)</span><span>Goonj</span><span>Sankara Eye Foundation</span><span>HelpAge India</span><span>Rang De</span><span>Milaap (crowdfunding)</span><span>Ketto</span><span class="uae">Beit Al Khair Society</span><span class="uae">Al Jalila Foundation</span><span class="uae">Dubai Cares</span><span class="uae">Emirates Red Crescent</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 27 Trade Shows -->
+<article class="industry" id="trade">
+  <h3>27 · Trade Show Exhibitors (Cross-Industry)</h3>
+  <div class="who">Booth reps at industry expos · brand activation teams · event sales · expo organiser sales teams</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">A booth at IndiaWood, ACMA, Auto Expo, Aero India, Mumbai Jewellery & Gem Fair, India Mobile Congress collects 500–2,000 cards in 3 days. Post-show conversion is the joke of the industry — most exhibitors close <2% of leads. Any company exhibiting is a single-event D2C card buyer (50–150 cards for the booth team).</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Bulk-card buyer for the booth team — 30–80 cards under their corporate brand for a single event. Tap = visitor instantly in CRM and retargeting audience. Voice notes between booth visits log lead quality, follow-up intent, contact decision-tree. The same 30 cards can be re-deployed at the next trade show.</div></div>
+
+  <div class="row"><div class="label">Pricing angle</div><div class="value">This is a recurring, predictable D2C bulk SKU. Sell event-based packs ("Trade Show Pack: 30 cards + analytics dashboard").</div></div>
+
+  <div class="row"><div class="label">Sample Indian shows / organisers</div><div class="value">
+    <div class="companies">
+      <span>Auto Expo</span><span>India Mobile Congress</span><span>Aero India</span><span>IndiaWood</span><span>ACMA Automechanika</span><span>IIJS (Indian Jewellery & Gem Show)</span><span>Indian Hospitality &amp; Tourism Conclave</span><span>Convergence India</span><span>OTM Mumbai (travel)</span><span>SATTE (travel)</span><span>FICCI Frames</span><span>Defexpo</span><span>India Pharma &amp; India Medical Device</span><span>India International Footwear Fair</span><span>Plastindia</span><span>Hannover Messe India</span><span class="uae">GITEX (Dubai)</span><span class="uae">Arab Health</span><span class="uae">ATM Dubai (travel)</span><span class="uae">Dubai Airshow</span><span class="uae">Big 5 Construct</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- 28 F&B -->
+<article class="industry" id="hospitality">
+  <h3>28 · F&amp;B / Restaurant Sales (Front-of-house, Private Dining)</h3>
+  <div class="who">Restaurant GMs · sommeliers · private dining managers · chef-restaurateurs · catering sales</div>
+
+  <div class="row"><div class="label">Reality</div><div class="value">High-end restaurant groups (Hunger Inc, Olive, Massive Restaurants, Sunset Hospitality) build VIP guest databases. Private dining/catering is a separate revenue line driven by sales managers. Smaller deal sizes than hotels but volume of touchpoints is high.</div></div>
+
+  <div class="row"><div class="label">AceCard fit</div><div class="value">Sales manager profile = menu, private dining gallery, sample BEO, allergen sheet, booking calendar. Tap = guest enters retargeting for new menu launches and chef tables. Voice notes after the planner meeting log party size, dietary preferences, budget, allergens, drink preferences.</div></div>
+
+  <div class="row"><div class="label">Companies</div><div class="value">
+    <div class="companies">
+      <span>Hunger Inc (Bombay Canteen, O Pedro, Yauatcha)</span><span>Olive Bar &amp; Kitchen Group</span><span>Massive Restaurants (SOCIAL, Smoke House Deli)</span><span>Speciality Restaurants (Mainland China, Sigree, Oh Calcutta)</span><span>Indian Accent</span><span>Quattro Restaurants</span><span>Azure Hospitality (Mamagoto, Dhaba)</span><span>Pebble Street (Farzi Cafe, Masala Library)</span><span>JW Marriott catering teams</span><span>Taj Catering</span><span class="uae">Sunset Hospitality</span><span class="uae">Tashas Group</span><span class="uae">Roya International</span><span class="uae">Solutions Leisure</span><span class="uae">Bull &amp; Roo</span>
+    </div>
+  </div></div>
+</article>
+
+<!-- ============================== -->
+<!-- CLOSING -->
+<!-- ============================== -->
+<div class="footer-block">
+  <h3>Where to start commercially</h3>
+  <p><strong>Volume D2C plays first.</strong> Real estate brokers, insurance agents, mortgage DSAs and luxury SAs are the fastest individual buyers — they will pay ₹3,000 for a card that pays for itself in one closed deal.</p>
+  <p><strong>Bulk institutional second.</strong> Hotels, business schools, hospital chains, jewellery groups and ad agencies are the bulk buyers (50–500 cards at a time) — the Masters' Union template is already proven and replicable.</p>
+  <p><strong>Marquee names third.</strong> One luxury developer (DLF / Lodha / Sobha), one private bank (Kotak Wealth / 360 ONE), one MBB office (Bain India), and one media house (HT / Bennett Coleman) deploying AceCard cards across their senior team becomes the public reference set the entire D2C subsidiary brand can ride for the next 18 months.</p>
+  <p style="color: rgba(255,255,255,0.4); font-size: 13px; margin-top: 24px;">Internal document. April 2026. Compiled from AceCard knowledge base + market intelligence.</p>
+</div>
+
+</div>
+</body>
+</html>

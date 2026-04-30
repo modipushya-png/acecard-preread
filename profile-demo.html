@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shubham Rohatgi — AceCard</title>
+<style>
+  *{ box-sizing:border-box; margin:0; padding:0 }
+  html,body{
+    width:100%; min-height:100%;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:#080e1c;
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    font-size:14px;
+  }
+
+  /* ── STATUS BAR ── */
+  .sb{
+    position:sticky; top:0; z-index:30;
+    background:#080e1c;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:6px 16px 5px;
+    font-size:11px; font-weight:700; letter-spacing:.01em;
+  }
+  .sb-r{ display:flex; align-items:center; gap:6px }
+  .sig{ display:flex; align-items:flex-end; gap:1.5px }
+  .sig span{ display:block; width:3px; background:#fff; border-radius:1px }
+  .sig span:nth-child(1){ height:4px }
+  .sig span:nth-child(2){ height:6px }
+  .sig span:nth-child(3){ height:9px }
+  .sig span:nth-child(4){ height:11px; opacity:.3 }
+  .batt{
+    width:22px; height:11px; border:1.5px solid rgba(255,255,255,.45);
+    border-radius:3px; position:relative;
+  }
+  .batt::before{
+    content:''; position:absolute; right:-5px; top:50%; transform:translateY(-50%);
+    width:3px; height:5px; background:rgba(255,255,255,.35); border-radius:0 2px 2px 0;
+  }
+  .batt::after{
+    content:''; position:absolute; left:2px; top:2px; bottom:2px;
+    width:13px; border-radius:1px; background:#fff;
+  }
+
+  /* ── HERO CARD ── */
+  .hero-card{
+    margin:0 12px 0;
+    border-radius:18px;
+    overflow:hidden;
+    position:relative;
+    min-height:168px;
+    background:#0d1a30;
+  }
+  .hero-cover{
+    position:absolute; inset:0;
+    background-image:url('photos/shubham_cover.jpg');
+    background-size:cover; background-position:center;
+    opacity:.38;
+  }
+  .hero-cover-grad{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(8,14,28,.15) 0%, rgba(8,14,28,.55) 60%, rgba(8,14,28,.88) 100%);
+  }
+  .hero-inner{
+    position:relative; z-index:2;
+    display:flex; flex-direction:column; align-items:center;
+    padding:14px 14px 18px;
+  }
+  .hero-wm{
+    position:absolute; top:13px; right:15px; z-index:3;
+    font-size:13.5px; font-weight:700; letter-spacing:.02em;
+    color:rgba(255,255,255,.85);
+    font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+    pointer-events:none;
+  }
+  /* spacer so flex column still reserves room at top for avatar */
+  .hero-wm-spacer{ height:14px; width:100%; flex-shrink:0 }
+  .avatar{
+    width:72px; height:72px; border-radius:50%;
+    object-fit:cover; display:block;
+    border:2.5px solid rgba(255,255,255,.22);
+    background:#1a2a44;
+    margin-bottom:10px;
+  }
+  .hero-name{
+    font-size:17px; font-weight:700; letter-spacing:-.02em;
+    color:#fff; line-height:1.2; margin-bottom:3px;
+    text-align:center;
+  }
+  .hero-role{
+    font-size:12px; color:rgba(255,255,255,.55);
+    text-align:center; letter-spacing:.01em;
+  }
+
+  /* ── BIO ── */
+  .bio{
+    padding:18px 20px 2px;
+    text-align:center;
+    font-size:12.5px; line-height:1.7;
+    color:rgba(255,255,255,.65);
+  }
+
+  /* ── SOCIAL ICONS ── */
+  .socials{
+    display:flex; justify-content:center; gap:9px;
+    padding:16px 10px 4px;
+  }
+  .soc{
+    width:48px; height:48px; border-radius:50%;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);
+    display:grid; place-items:center;
+    text-decoration:none; color:#fff;
+    flex-shrink:0;
+    transition:background .15s;
+  }
+  .soc svg{ width:22px; height:22px; display:block }
+
+  /* ── SECTION LABEL ── */
+  .sec-label{
+    padding:20px 16px 10px;
+    font-size:13px; font-weight:600; color:#fff;
+    letter-spacing:-.01em;
+  }
+
+  /* ── FEATURED VIDEO ── */
+  .vid-carousel{
+    padding:0 12px;
+    display:flex; gap:10px;
+    overflow-x:auto; scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .vid-carousel::-webkit-scrollbar{ display:none }
+  .vid-card{
+    flex-shrink:0; width:calc(100% - 28px);
+    border-radius:12px; overflow:hidden;
+    scroll-snap-align:start; background:#0d1a30;
+    position:relative;
+  }
+  .vid-thumb{
+    width:100%; aspect-ratio:16/9;
+    position:relative; display:block;
+    background:linear-gradient(135deg, #1a1200 0%, #332200 30%, #1a0d00 100%);
+  }
+  .vid-thumb img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  /* Fallback if image fails */
+  .vid-thumb-fallback{
+    position:absolute; inset:0;
+    background:linear-gradient(135deg,#2a1800 0%,#4a2e00 40%,#1a1000 100%);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .vid-play{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:44px; height:44px; border-radius:50%;
+    background:#ff0000;
+    display:flex; align-items:center; justify-content:center;
+    z-index:2;
+  }
+  .vid-play::after{
+    content:'';
+    border-style:solid; border-color:transparent;
+    border-left:16px solid #fff;
+    border-top-width:10px; border-bottom-width:10px; border-right-width:0;
+    margin-left:3px; display:block;
+  }
+  .vid-ep{
+    position:absolute; bottom:8px; left:9px; z-index:2;
+    font-size:10px; font-weight:700; color:#fff;
+    background:rgba(0,0,0,.7); border-radius:4px;
+    padding:2px 7px; letter-spacing:.04em;
+  }
+  .vid-yt{
+    position:absolute; bottom:8px; right:9px; z-index:2;
+    font-size:9px; color:rgba(255,255,255,.7);
+    background:rgba(0,0,0,.55); border-radius:3px;
+    padding:2px 6px;
+  }
+  .vid-meta{
+    padding:9px 12px 11px;
+    font-size:11.5px; font-weight:500; color:rgba(255,255,255,.75);
+    line-height:1.4;
+  }
+  .carousel-dots{
+    display:flex; justify-content:center; gap:5px;
+    padding:10px 0 4px;
+  }
+  .carousel-dots span{
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(255,255,255,.25);
+  }
+  .carousel-dots span.active{
+    background:rgba(255,255,255,.8); width:18px; border-radius:3px;
+  }
+
+  /* ── YOU MUST GO THROUGH ── */
+  .must-item{
+    margin:0 12px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    padding:11px 14px;
+    display:flex; align-items:center; gap:12px;
+    text-decoration:none; color:#fff;
+  }
+  .must-ava{
+    width:38px; height:38px; border-radius:50%;
+    object-fit:cover; flex-shrink:0;
+    background:#1a2a44;
+    border:1.5px solid rgba(255,255,255,.15);
+  }
+  .must-title{
+    font-size:12.5px; font-weight:500;
+    color:rgba(255,255,255,.8); line-height:1.4;
+  }
+  .must-arr{ margin-left:auto; opacity:.35; font-size:16px; flex-shrink:0 }
+
+  /* ── CONNECT SECTION (white card) ── */
+  .connect-card{
+    margin:16px 12px 0;
+    background:#fff;
+    border-radius:16px;
+    padding:18px 16px;
+    color:#0d0d0d;
+  }
+  .connect-logos{
+    display:flex; align-items:center; gap:10px; margin-bottom:14px;
+  }
+  .logo-badge{
+    display:flex; align-items:center; justify-content:center;
+    width:36px; height:36px; border-radius:50%;
+    font-size:11px; font-weight:800; flex-shrink:0;
+  }
+  .logo-badge.a16z{ background:#f97316; color:#fff }
+  .logo-badge.ac{
+    background:#0d0d0d; color:#fff;
+    font-family:-apple-system,sans-serif; font-size:10px; letter-spacing:.04em;
+  }
+  .connect-card p{
+    font-size:12px; color:#555; margin-bottom:12px; line-height:1.55;
+  }
+  .connect-row{
+    display:flex; gap:8px;
+  }
+  .connect-input{
+    flex:1; padding:9px 12px;
+    border:1.5px solid #e2e8f0; border-radius:10px;
+    font-size:12.5px; color:#0d0d0d;
+    outline:none; background:#f8f9fc;
+  }
+  .connect-btn{
+    padding:9px 16px; border-radius:10px;
+    background:#0d1a30; color:#fff;
+    font-size:12.5px; font-weight:700;
+    border:none; cursor:pointer; white-space:nowrap;
+  }
+
+  /* ── PRODUCT BANNER ── */
+  .prod-banner{
+    margin:14px 12px 20px;
+    background:linear-gradient(135deg,#0d1a30 0%,#1a2a44 100%);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    overflow:hidden;
+    display:flex; align-items:stretch;
+    min-height:88px;
+  }
+  .prod-photo{
+    width:80px; flex-shrink:0;
+    background-image:url('photos/shubham_avatar.jpg');
+    background-size:cover; background-position:top center;
+  }
+  .prod-text{
+    flex:1; padding:14px 14px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .prod-eyebrow{
+    font-size:8.5px; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:rgba(255,255,255,.4);
+    margin-bottom:5px;
+  }
+  .prod-headline{
+    font-size:12.5px; font-weight:800; line-height:1.3;
+    color:#fff; letter-spacing:-.01em; text-transform:uppercase;
+  }
+  .prod-sub{
+    font-size:10px; color:rgba(255,255,255,.4); margin-top:5px;
+  }
+
+  /* ── LOADING SHIMMER ── */
+  @keyframes shimmer{
+    0%{background-position:-300px 0}
+    100%{background-position:300px 0}
+  }
+  .loading-veil{
+    position:fixed; inset:0; background:#080e1c; z-index:100;
+    animation:veilFade .3s ease .7s forwards;
+    pointer-events:none;
+  }
+  .lv-inner{ padding:12px 12px 0; display:flex; flex-direction:column; gap:10px }
+  .sh{
+    background:linear-gradient(90deg, rgba(255,255,255,.05) 25%, rgba(255,255,255,.1) 50%, rgba(255,255,255,.05) 75%);
+    background-size:600px 100%;
+    animation:shimmer 1.4s ease-in-out infinite;
+    border-radius:8px;
+  }
+  @keyframes veilFade{ to{ opacity:0 } }
+</style>
+</head>
+<body>
+
+<!-- Loading veil -->
+<div class="loading-veil" aria-hidden="true">
+  <div style="height:22px;background:#080e1c"></div>
+  <div class="lv-inner">
+    <div class="sh" style="height:168px;border-radius:18px"></div>
+    <div style="display:flex;flex-direction:column;gap:6px;padding:4px 8px">
+      <div class="sh" style="height:10px;width:85%;margin:0 auto;border-radius:5px"></div>
+      <div class="sh" style="height:10px;width:72%;margin:0 auto;border-radius:5px"></div>
+      <div class="sh" style="height:10px;width:60%;margin:0 auto;border-radius:5px"></div>
+    </div>
+    <div style="display:flex;gap:14px;justify-content:center">
+      <div class="sh" style="width:54px;height:54px;border-radius:50%"></div>
+      <div class="sh" style="width:54px;height:54px;border-radius:50%"></div>
+      <div class="sh" style="width:54px;height:54px;border-radius:50%"></div>
+      <div class="sh" style="width:54px;height:54px;border-radius:50%"></div>
+    </div>
+    <div class="sh" style="height:140px;border-radius:12px"></div>
+  </div>
+</div>
+
+<!-- Status bar -->
+<div class="sb">
+  <span>9:41</span>
+  <div class="sb-r">
+    <div class="sig"><span></span><span></span><span></span><span></span></div>
+    <!-- wifi -->
+    <svg width="16" height="12" viewBox="0 0 24 18" fill="none">
+      <path d="M12 14.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3z" fill="rgba(255,255,255,.85)"/>
+      <path d="M7.5 10.5a6.5 6.5 0 019 0" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M4 7a11 11 0 0116 0" stroke="rgba(255,255,255,.6)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M1 3.5A15.5 15.5 0 0123 3.5" stroke="rgba(255,255,255,.35)" stroke-width="2" stroke-linecap="round" fill="none"/>
+    </svg>
+    <div class="batt"></div>
+  </div>
+</div>
+
+<!-- Hero card -->
+<div class="hero-card">
+  <div class="hero-cover"></div>
+  <div class="hero-cover-grad"></div>
+  <!-- Wordmark: absolutely positioned, doesn't affect flex layout -->
+  <div class="hero-wm">Acecard</div>
+  <div class="hero-inner">
+    <div class="hero-wm-spacer"></div>
+    <img class="avatar" src="photos/shubham_avatar.jpg" alt="Shubham Rohatgi" />
+    <h1 class="hero-name">Shubham Rohatgi</h1>
+    <p class="hero-role">Founder and COO, AceCard</p>
+  </div>
+</div>
+
+<!-- Bio -->
+<p class="bio">Disrupting the sales ecosystem with data and insights. Started the first edtech venture at 17, scaled operations across India and the GCC as VP of Growth at Masters' Union, won grants on startup reality shows for RiseUp, and built Snowball with clients across the US, Australia, and Singapore</p>
+
+<!-- Social icons -->
+<div class="socials">
+  <!-- LinkedIn -->
+  <a href="#" class="soc">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <rect x="3" y="3" width="18" height="18" rx="3" fill="rgba(255,255,255,.12)"/>
+      <path d="M7.5 9.5v8M7.5 6.5a.5.5 0 110 1 .5.5 0 010-1zM11 9.5v8M11 12.5c0-1.657 1.343-3 3-3s3 1.343 3 3v5" stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    </svg>
+  </a>
+  <!-- Instagram -->
+  <a href="#" class="soc">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+    </svg>
+  </a>
+  <!-- WhatsApp -->
+  <a href="#" class="soc">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+  <!-- Cal.com -->
+  <a href="#" class="soc">
+    <svg viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.7"/>
+      <path d="M8 9h3.5l-1 2.5H13L9.5 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</div>
+
+<!-- Featured at -->
+<div class="sec-label">Featured at</div>
+
+<div class="vid-carousel">
+  <!-- Video 1: Masters Union -->
+  <div class="vid-card">
+    <div class="vid-thumb">
+      <!-- Styled thumbnail mimicking the Masters' Union yellow/black aesthetic -->
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1a1200,#3d2800 40%,#1a1000);display:flex;align-items:center;justify-content:center;overflow:hidden">
+        <div style="position:absolute;top:0;right:0;padding:6px 10px;font-size:8px;font-weight:800;letter-spacing:.12em;color:rgba(255,255,255,.85);background:rgba(0,0,0,.4);border-radius:0 0 0 8px">MASTERS' UNION</div>
+        <div style="text-align:center;padding:0 48px">
+          <div style="font-size:15px;font-weight:900;letter-spacing:-.02em;color:#f5c518;line-height:1.1;text-transform:uppercase">FIND YOUR<br/>IDEAL<br/>MATCH</div>
+        </div>
+      </div>
+      <div class="vid-play"></div>
+      <div class="vid-ep">EP 5</div>
+      <div class="vid-yt">YouTube</div>
+    </div>
+    <div class="vid-meta">Find Your Ideal Match — Masters' Union Ep. 5</div>
+  </div>
+
+  <!-- Video 2: (second card for carousel) -->
+  <div class="vid-card">
+    <div class="vid-thumb">
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0d1a30,#1a3256);display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center;padding:0 24px">
+          <div style="font-size:13px;font-weight:800;color:#fff;line-height:1.3;text-transform:uppercase;letter-spacing:-.01em">From Idea<br/>to Startup</div>
+          <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:4px;letter-spacing:.06em">ACECARD</div>
+        </div>
+      </div>
+      <div class="vid-play"></div>
+      <div class="vid-yt">YouTube</div>
+    </div>
+    <div class="vid-meta">From an Idea to StartUp – AceCard</div>
+  </div>
+</div>
+
+<div class="carousel-dots">
+  <span class="active"></span>
+  <span></span>
+</div>
+
+<!-- You must go through -->
+<div class="sec-label">You must go through:</div>
+<a href="#" class="must-item">
+  <img class="must-ava" src="photos/shubham_avatar.jpg" alt="" />
+  <span class="must-title">From an Idea to StartUp – AceCard</span>
+  <span class="must-arr">›</span>
+</a>
+
+<!-- Connect (white card) -->
+<div class="connect-card">
+  <div class="connect-logos">
+    <div class="logo-badge a16z">a16z</div>
+    <div class="logo-badge ac">Ac</div>
+  </div>
+  <p>Stay in the loop. Get AceCard's field sales insights and early updates.</p>
+  <div class="connect-row">
+    <input class="connect-input" type="email" placeholder="Your email" />
+    <button class="connect-btn">Connect</button>
+  </div>
+</div>
+
+<!-- Product banner -->
+<div class="prod-banner">
+  <div class="prod-photo"></div>
+  <div class="prod-text">
+    <div class="prod-eyebrow">AceCard · 2026</div>
+    <div class="prod-headline">Turning every<br/>interaction into<br/>zero-effort capture</div>
+    <div class="prod-sub">Voice-to-CRM for field sales</div>
+  </div>
+</div>
+
+</body>
+</html>
