@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>AceCard rep app mocks</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B1326;
+    --bg2:#0A1124;
+    --card:#FFFFFF;
+    --card-soft:#F4F6FB;
+    --text:#0F1A33;
+    --text-mid:#475174;
+    --text-dim:#8A93AC;
+    --border:#E6EAF3;
+    --acecard-blue:#3F7CFE;
+    --acecard-blue-2:#4F84FF;
+    --acecard-blue-deep:#1F4DD7;
+    --green:#11B981;
+    --green-soft:#D6F5E6;
+    --red:#EF4444;
+    --gold:#E3BC7B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{font-family:'DM Sans','Inter',system-ui,sans-serif; color:var(--text); background:#152042}
+
+  /* Mobile mock frame: 390x844 viewport, gradient bg matching the Acecard profile look */
+  .screen{
+    width:390px; height:844px;
+    overflow:hidden; position:relative;
+    background:linear-gradient(180deg,#0B1326 0%,#102047 36%,#1B2E66 100%);
+    color:#F2F5FF;
+    font-family:'DM Sans','Inter',sans-serif;
+  }
+  .status-bar{
+    height:46px;
+    display:flex;align-items:flex-end;justify-content:space-between;
+    padding:0 24px 8px;
+    font-family:'Inter',sans-serif;
+    font-weight:600; font-size:15px; color:#fff;
+  }
+  .status-bar svg{vertical-align:middle}
+  .status-icons{display:inline-flex;align-items:flex-end;gap:6px}
+
+  .top-bar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:8px 22px 14px;
+  }
+  .top-bar .back{
+    width:36px;height:36px;border-radius:18px;
+    background:rgba(255,255,255,.08);
+    display:grid;place-items:center;color:#fff;
+    border:1px solid rgba(255,255,255,.08);
+  }
+  .top-bar .title{
+    font-family:'Inter',sans-serif;font-weight:700;font-size:17px;color:#fff;letter-spacing:-.01em;
+  }
+  .top-bar .menu{width:36px;height:36px;border-radius:18px;background:rgba(255,255,255,.04);display:grid;place-items:center;color:#A8B6E0;border:1px solid rgba(255,255,255,.05)}
+
+  .pad{padding:0 18px}
+
+  /* Voice capture */
+  .ping{
+    background:linear-gradient(135deg,rgba(63,124,254,.18),rgba(63,124,254,.06));
+    border:1px solid rgba(63,124,254,.28);
+    border-radius:16px;
+    padding:14px 16px;
+    margin-bottom:14px;
+    color:#E7EEFF;
+  }
+  .ping .row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .dot{width:8px;height:8px;border-radius:4px;background:#3F7CFE;box-shadow:0 0 8px #3F7CFE;display:inline-block}
+  .ping .label{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#9AB2EF;
+  }
+  .ping .head{font-weight:700;font-size:15px;color:#fff;margin-bottom:4px}
+  .ping .body{font-size:13px;color:#C4D0F5;line-height:1.45}
+
+  .ref-card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:14px 16px 16px;
+    margin-bottom:14px;
+  }
+  .ref-card .h{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#A8B6E0;margin-bottom:10px;
+  }
+  .ref-card ul{list-style:none}
+  .ref-card li{
+    padding:9px 0; font-size:13.5px; color:#E2E8FA; line-height:1.35;
+    border-top:1px solid rgba(255,255,255,.06);
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .ref-card li:first-child{border-top:none}
+  .ref-card li .num{
+    flex-shrink:0;width:18px;height:18px;border-radius:9px;
+    background:rgba(63,124,254,.2);color:#7BA3FF;
+    font-size:10px;font-weight:700; display:grid;place-items:center;
+    font-family:'Inter',sans-serif;
+  }
+
+  .mic-card{
+    margin-top:18px;
+    background:linear-gradient(135deg,#3F7CFE 0%,#1F4DD7 100%);
+    border-radius:22px;
+    padding:22px 18px;
+    text-align:center;color:#fff;
+    box-shadow:0 18px 50px rgba(31,77,215,.4), inset 0 1px 0 rgba(255,255,255,.16);
+  }
+  .mic-card .pulse{
+    width:78px;height:78px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.5);
+    display:grid;place-items:center;margin:0 auto 10px;color:#fff;
+    box-shadow:0 0 0 12px rgba(255,255,255,.06), 0 0 0 24px rgba(255,255,255,.03);
+  }
+  .mic-card .bars{display:flex;gap:3px;justify-content:center;align-items:flex-end;height:24px;margin-bottom:8px}
+  .mic-card .bars span{display:block;width:3px;border-radius:2px;background:#fff;opacity:.95}
+  .mic-card .bars span:nth-child(1){height:32%}
+  .mic-card .bars span:nth-child(2){height:62%}
+  .mic-card .bars span:nth-child(3){height:88%}
+  .mic-card .bars span:nth-child(4){height:54%}
+  .mic-card .bars span:nth-child(5){height:78%}
+  .mic-card .bars span:nth-child(6){height:42%}
+  .mic-card .bars span:nth-child(7){height:90%}
+  .mic-card .bars span:nth-child(8){height:38%}
+  .mic-card .bars span:nth-child(9){height:62%}
+  .mic-card .bars span:nth-child(10){height:34%}
+  .mic-card .bars span:nth-child(11){height:74%}
+  .mic-card .bars span:nth-child(12){height:48%}
+  .mic-card .timer{
+    font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.18em;
+    margin-top:4px;color:#fff;
+  }
+  .mic-card .live{display:inline-flex;align-items:center;gap:6px;color:#FFC8C0}
+  .mic-card .live::before{content:"";width:6px;height:6px;border-radius:3px;background:#FF4D4D;box-shadow:0 0 8px #FF4D4D}
+
+  .mic-row{display:flex;gap:10px;margin-top:14px}
+  .pill{
+    flex:1; padding:14px 0; border-radius:14px;text-align:center;
+    font-weight:600;font-size:14px;
+    background:rgba(255,255,255,.06);color:#E7EEFF;border:1px solid rgba(255,255,255,.08);
+  }
+  .pill.primary{background:#fff;color:#1F4DD7;border:none}
+
+  /* Structured fields */
+  .who{
+    display:flex;gap:12px;align-items:center;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+    border-radius:16px;padding:14px;margin-bottom:14px;
+  }
+  .ava{
+    width:44px;height:44px;border-radius:22px;
+    background:linear-gradient(135deg,#3F7CFE,#1F4DD7);
+    color:#fff;font-weight:700;font-size:16px;
+    display:grid;place-items:center;
+    box-shadow:0 6px 18px rgba(63,124,254,.4);
+  }
+  .who .name{font-weight:700;font-size:15px;color:#fff;letter-spacing:-.01em}
+  .who .role{font-size:12.5px;color:#A8B6E0;margin-top:2px}
+  .who .badge{
+    margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;
+    color:#11B981; background:rgba(17,185,129,.12); border:1px solid rgba(17,185,129,.3);
+    padding:5px 8px; border-radius:6px; text-transform:uppercase;
+  }
+
+  .transcript-head{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#A8B6E0;margin:14px 4px 8px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .transcript-head::before{content:"";width:6px;height:6px;border-radius:3px;background:#3F7CFE}
+  .quote-card{
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+    border-radius:14px;padding:13px 14px;margin-bottom:14px;
+    font-size:13.5px;line-height:1.5;color:#E2E8FA;font-style:italic;
+  }
+  .quote-card::before{content:"\201C";color:#3F7CFE;font-family:'DM Sans';font-size:30px;line-height:0;display:inline-block;vertical-align:-8px;margin-right:4px}
+
+  .fields-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:9px;
+  }
+  .field{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:13px;
+    padding:11px 12px;
+  }
+  .field .k{
+    font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#7E8CB0;margin-bottom:4px;
+  }
+  .field .v{font-size:13.5px;font-weight:600;color:#fff;letter-spacing:-.01em;line-height:1.25}
+  .field.full{grid-column:1/-1}
+  .field .check{
+    float:right;width:14px;height:14px;border-radius:7px;background:#11B981;display:grid;place-items:center;margin-top:-1px;
+    color:#fff;
+  }
+
+  .sync-banner{
+    margin-top:14px;
+    background:linear-gradient(135deg,#0F2451,#3F7CFE);
+    border-radius:14px;
+    padding:12px 14px; color:#fff;
+    display:flex;align-items:center;gap:12px;
+    font-size:13px;
+    box-shadow:0 10px 30px rgba(63,124,254,.3);
+  }
+  .sync-banner .ic{
+    width:30px;height:30px;border-radius:15px;background:rgba(255,255,255,.12);display:grid;place-items:center;
+  }
+  .sync-banner b{display:block;font-weight:700;font-size:13px;margin-bottom:1px}
+  .sync-banner span{color:#C4D0F5;font-size:11.5px}
+
+  /* Brief */
+  .brief-head{
+    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;padding:16px;
+    display:flex;gap:12px;align-items:center;
+    margin-bottom:16px;
+  }
+  .brief-head .ava{width:50px;height:50px;font-size:17px}
+  .brief-head .who-name{font-weight:700;font-size:16px;color:#fff;letter-spacing:-.01em}
+  .brief-head .who-role{font-size:12.5px;color:#A8B6E0;margin-top:2px}
+  .brief-head .meeting-tag{
+    margin-left:auto;
+    font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#E3BC7B;
+    background:rgba(227,188,123,.1);border:1px solid rgba(227,188,123,.3);
+    padding:5px 8px;border-radius:6px;text-align:center;
+  }
+
+  .brief-section-head{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#A8B6E0;
+    margin:6px 4px 10px;display:flex;align-items:center;gap:8px;
+  }
+  .brief-section-head::before{content:"";width:6px;height:6px;border-radius:3px;background:#3F7CFE}
+
+  .timeline{position:relative;padding-left:20px;margin-bottom:14px}
+  .timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:14px;width:2px;background:linear-gradient(180deg,#3F7CFE 0%,rgba(63,124,254,.1) 100%);border-radius:2px}
+  .tl-event{position:relative;margin-bottom:14px;padding-left:8px}
+  .tl-event::before{
+    content:"";position:absolute;left:-21px;top:6px;width:12px;height:12px;border-radius:6px;
+    background:#0B1326;border:2px solid #3F7CFE;
+  }
+  .tl-event.now::before{background:#3F7CFE;box-shadow:0 0 12px #3F7CFE}
+  .tl-when{
+    font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#7BA3FF;margin-bottom:3px;
+  }
+  .tl-what{font-size:13px;line-height:1.45;color:#E2E8FA}
+  .tl-what b{color:#fff;font-weight:600}
+
+  .next-card{
+    background:linear-gradient(135deg,#3F7CFE 0%,#1F4DD7 100%);
+    border-radius:16px;padding:14px 16px;color:#fff;
+    box-shadow:0 14px 38px rgba(31,77,215,.35);
+  }
+  .next-card .lbl{
+    font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:#C4D7FF;margin-bottom:6px;
+  }
+  .next-card .what{font-size:14px;font-weight:600;line-height:1.4}
+  .next-card .what b{color:#fff}
+
+  /* Section labels for navigation between mocks */
+  .stage{display:flex;flex-wrap:wrap;gap:40px;padding:60px;background:#152042}
+  .stage figure{margin:0}
+  .stage figcaption{font:600 12px/1 'JetBrains Mono',monospace;letter-spacing:.2em;text-transform:uppercase;color:#9AB2EF;margin-top:14px;text-align:center}
+  /* iPhone-ish frame for screenshot context */
+  .frame{
+    width:412px; height:866px;
+    padding:11px;
+    background:linear-gradient(145deg,#1A1F35 0%,#0A0F1F 50%,#1A1F35 100%);
+    border-radius:46px;
+    box-shadow:0 0 0 2px #000, inset 0 0 0 2px rgba(255,255,255,.06), 0 30px 60px rgba(0,0,0,.55);
+    position:relative;
+  }
+  .frame::before{
+    content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);
+    width:120px;height:32px;background:#000;border-radius:18px;z-index:5;
+  }
+  .frame .screen{border-radius:36px;overflow:hidden}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- ─────────── STEP 02 — VOICE CAPTURE ─────────── -->
+  <figure id="m-voice">
+    <div class="frame"><div class="screen">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span class="status-icons">
+          <svg width="18" height="11" viewBox="0 0 18 11" fill="none"><circle cx="2" cy="9" r="1.6" fill="#fff"/><circle cx="6" cy="9" r="1.6" fill="#fff"/><circle cx="10" cy="9" r="1.6" fill="#fff"/><circle cx="14" cy="9" r="1.6" fill="#fff"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M8 2C4.5 2 1.5 3.5 0 5.5L1.5 7C2.7 5.4 5.2 4 8 4s5.3 1.4 6.5 3L16 5.5C14.5 3.5 11.5 2 8 2zm0 4c-1.7 0-3.3.8-4.5 2L5 9.5C5.7 8.6 6.8 8 8 8s2.3.6 3 1.5L12.5 8C11.3 6.8 9.7 6 8 6z" fill="#fff"/></svg>
+          <svg width="26" height="13" viewBox="0 0 26 13"><rect x="0.5" y="0.5" width="22" height="12" rx="3" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="19" height="9" rx="1.5" fill="#fff"/><rect x="23" y="4" width="2" height="5" rx=".5" fill="#fff" opacity=".55"/></svg>
+        </span>
+      </div>
+
+      <div class="top-bar">
+        <span class="back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></span>
+        <span class="title">Voice Capture</span>
+        <span class="menu"><svg width="18" height="4" viewBox="0 0 18 4"><circle cx="2" cy="2" r="1.6" fill="#A8B6E0"/><circle cx="9" cy="2" r="1.6" fill="#A8B6E0"/><circle cx="16" cy="2" r="1.6" fill="#A8B6E0"/></svg></span>
+      </div>
+
+      <div class="pad">
+        <div class="ping">
+          <div class="row"><span class="dot"></span><span class="label">TAP CAPTURED · HDFC HQ</span></div>
+          <div class="head">You met someone 90 seconds ago</div>
+          <div class="body">Talk through it now while it's fresh. We'll structure it after.</div>
+        </div>
+
+        <div class="ref-card">
+          <div class="h">Reference questions</div>
+          <ul>
+            <li><span class="num">1</span><span>Who did you meet, and what role do they play?</span></li>
+            <li><span class="num">2</span><span>What's the deal size you're aiming for?</span></li>
+            <li><span class="num">3</span><span>What's the next step, and what's the objection?</span></li>
+          </ul>
+        </div>
+
+        <div class="mic-card">
+          <div class="pulse">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg>
+          </div>
+          <div class="bars">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="timer"><span class="live">RECORDING</span> · 0:42</div>
+        </div>
+
+        <div class="mic-row">
+          <div class="pill">Cancel</div>
+          <div class="pill primary">Done</div>
+        </div>
+      </div>
+    </div></div>
+    <figcaption>Step 02 · The voice</figcaption>
+  </figure>
+
+  <!-- ─────────── STEP 03 — STRUCTURED FIELDS ─────────── -->
+  <figure id="m-structure">
+    <div class="frame"><div class="screen">
+      <div class="status-bar">
+        <span>9:42</span>
+        <span class="status-icons">
+          <svg width="18" height="11" viewBox="0 0 18 11" fill="none"><circle cx="2" cy="9" r="1.6" fill="#fff"/><circle cx="6" cy="9" r="1.6" fill="#fff"/><circle cx="10" cy="9" r="1.6" fill="#fff"/><circle cx="14" cy="9" r="1.6" fill="#fff"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M8 2C4.5 2 1.5 3.5 0 5.5L1.5 7C2.7 5.4 5.2 4 8 4s5.3 1.4 6.5 3L16 5.5C14.5 3.5 11.5 2 8 2zm0 4c-1.7 0-3.3.8-4.5 2L5 9.5C5.7 8.6 6.8 8 8 8s2.3.6 3 1.5L12.5 8C11.3 6.8 9.7 6 8 6z" fill="#fff"/></svg>
+          <svg width="26" height="13" viewBox="0 0 26 13"><rect x="0.5" y="0.5" width="22" height="12" rx="3" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="19" height="9" rx="1.5" fill="#fff"/><rect x="23" y="4" width="2" height="5" rx=".5" fill="#fff" opacity=".55"/></svg>
+        </span>
+      </div>
+
+      <div class="top-bar">
+        <span class="back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></span>
+        <span class="title">Review Lead</span>
+        <span class="menu"><svg width="18" height="4" viewBox="0 0 18 4"><circle cx="2" cy="2" r="1.6" fill="#A8B6E0"/><circle cx="9" cy="2" r="1.6" fill="#A8B6E0"/><circle cx="16" cy="2" r="1.6" fill="#A8B6E0"/></svg></span>
+      </div>
+
+      <div class="pad">
+        <div class="who">
+          <div class="ava">PR</div>
+          <div>
+            <div class="name">Priya Rajan</div>
+            <div class="role">AVP Procurement · HDFC</div>
+          </div>
+          <div class="badge">Captured</div>
+        </div>
+
+        <div class="transcript-head">From your voice note · 1m 43s</div>
+        <div class="quote-card">Met Priya Rajan, AVP Procurement at HDFC. Around ₹40L for the first vertical. CFO Manish needs to clear compliance. Demo Tuesday 4pm. Closes by Q3 if compliance lands.</div>
+
+        <div class="transcript-head">Extracted CRM fields</div>
+        <div class="fields-grid">
+          <div class="field">
+            <div class="k">Buyer Role</div>
+            <div class="v">AVP Procurement</div>
+          </div>
+          <div class="field">
+            <div class="k">Deal Size</div>
+            <div class="v">₹40 lakhs</div>
+          </div>
+          <div class="field">
+            <div class="k">Decision</div>
+            <div class="v">End of Q3</div>
+          </div>
+          <div class="field">
+            <div class="k">Next step</div>
+            <div class="v">Demo Tue 4pm</div>
+          </div>
+          <div class="field">
+            <div class="k">Stakeholder</div>
+            <div class="v">CFO Manish G.</div>
+          </div>
+          <div class="field">
+            <div class="k">Objection</div>
+            <div class="v">Compliance review</div>
+          </div>
+        </div>
+
+        <div class="sync-banner">
+          <div class="ic">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          </div>
+          <div>
+            <b>Confirm &amp; sync to Salesforce</b>
+            <span>Pushed to your CRM in &lt;3 seconds</span>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <figcaption>Step 03 · The structure</figcaption>
+  </figure>
+
+  <!-- ─────────── STEP 04 — SYNC ─────────── -->
+  <figure id="m-sync">
+    <div class="frame"><div class="screen">
+      <div class="status-bar">
+        <span>9:43</span>
+        <span class="status-icons">
+          <svg width="18" height="11" viewBox="0 0 18 11" fill="none"><circle cx="2" cy="9" r="1.6" fill="#fff"/><circle cx="6" cy="9" r="1.6" fill="#fff"/><circle cx="10" cy="9" r="1.6" fill="#fff"/><circle cx="14" cy="9" r="1.6" fill="#fff"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M8 2C4.5 2 1.5 3.5 0 5.5L1.5 7C2.7 5.4 5.2 4 8 4s5.3 1.4 6.5 3L16 5.5C14.5 3.5 11.5 2 8 2zm0 4c-1.7 0-3.3.8-4.5 2L5 9.5C5.7 8.6 6.8 8 8 8s2.3.6 3 1.5L12.5 8C11.3 6.8 9.7 6 8 6z" fill="#fff"/></svg>
+          <svg width="26" height="13" viewBox="0 0 26 13"><rect x="0.5" y="0.5" width="22" height="12" rx="3" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="19" height="9" rx="1.5" fill="#fff"/><rect x="23" y="4" width="2" height="5" rx=".5" fill="#fff" opacity=".55"/></svg>
+        </span>
+      </div>
+
+      <div class="top-bar">
+        <span class="back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></span>
+        <span class="title">CRM Integrations</span>
+        <span class="menu"><svg width="18" height="4" viewBox="0 0 18 4"><circle cx="2" cy="2" r="1.6" fill="#A8B6E0"/><circle cx="9" cy="2" r="1.6" fill="#A8B6E0"/><circle cx="16" cy="2" r="1.6" fill="#A8B6E0"/></svg></span>
+      </div>
+
+      <div class="pad" style="padding-bottom:24px;">
+        <div style="background:linear-gradient(135deg,rgba(17,185,129,.18),rgba(17,185,129,.04));border:1px solid rgba(17,185,129,.32);border-radius:16px;padding:14px 16px;margin-bottom:18px;display:flex;align-items:center;gap:12px;">
+          <div style="width:34px;height:34px;border-radius:17px;background:#11B981;display:grid;place-items:center;flex-shrink:0;box-shadow:0 0 18px rgba(17,185,129,.5);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:14px;color:#fff;letter-spacing:-.01em;">Lead synced to Salesforce</div>
+            <div style="font-size:12px;color:#A8B6E0;margin-top:2px;font-family:'JetBrains Mono',monospace;letter-spacing:.06em;">priya.rajan@hdfc · 1.4s ago</div>
+          </div>
+        </div>
+
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#A8B6E0;margin:6px 4px 10px;display:flex;align-items:center;gap:8px;"><span style="width:6px;height:6px;border-radius:3px;background:#3F7CFE;"></span>LIVE OAUTH CONNECTORS</div>
+
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;">
+            <div style="width:38px;height:38px;border-radius:9px;background:#00A1E0;display:grid;place-items:center;font-weight:800;font-family:'Inter',sans-serif;font-size:14px;color:#fff;letter-spacing:-.04em;">SF</div>
+            <div style="flex:1;">
+              <div style="font-weight:600;font-size:14px;color:#fff;">Salesforce</div>
+              <div style="font-size:11.5px;color:#7BA3FF;margin-top:1px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;">acme.lightning.force.com</div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#11B981;background:rgba(17,185,129,.12);border:1px solid rgba(17,185,129,.3);padding:5px 9px;border-radius:6px;text-transform:uppercase;display:flex;align-items:center;gap:5px;"><span style="width:5px;height:5px;border-radius:3px;background:#11B981;box-shadow:0 0 6px #11B981;"></span>SYNCING</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;">
+            <div style="width:38px;height:38px;border-radius:9px;background:#FF7A59;display:grid;place-items:center;font-weight:800;font-family:'Inter',sans-serif;font-size:14px;color:#fff;letter-spacing:-.04em;">HS</div>
+            <div style="flex:1;">
+              <div style="font-weight:600;font-size:14px;color:#fff;">HubSpot</div>
+              <div style="font-size:11.5px;color:#A8B6E0;margin-top:1px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;">app.hubspot.com</div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#9AB2EF;background:rgba(155,178,239,.08);border:1px solid rgba(155,178,239,.18);padding:5px 9px;border-radius:6px;text-transform:uppercase;">CONNECTED</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;">
+            <div style="width:38px;height:38px;border-radius:9px;background:#E63946;display:grid;place-items:center;font-weight:800;font-family:'Inter',sans-serif;font-size:14px;color:#fff;letter-spacing:-.04em;">ZH</div>
+            <div style="flex:1;">
+              <div style="font-weight:600;font-size:14px;color:#fff;">Zoho CRM</div>
+              <div style="font-size:11.5px;color:#A8B6E0;margin-top:1px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;">crm.zoho.in</div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#9AB2EF;background:rgba(155,178,239,.08);border:1px solid rgba(155,178,239,.18);padding:5px 9px;border-radius:6px;text-transform:uppercase;">CONNECTED</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;">
+            <div style="width:38px;height:38px;border-radius:9px;background:#714B67;display:grid;place-items:center;font-weight:800;font-family:'Inter',sans-serif;font-size:14px;color:#fff;letter-spacing:-.04em;">OD</div>
+            <div style="flex:1;">
+              <div style="font-weight:600;font-size:14px;color:#fff;">Odoo</div>
+              <div style="font-size:11.5px;color:#A8B6E0;margin-top:1px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;">acme.odoo.com</div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;color:#9AB2EF;background:rgba(155,178,239,.08);border:1px solid rgba(155,178,239,.18);padding:5px 9px;border-radius:6px;text-transform:uppercase;">CONNECTED</div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <figcaption>Step 04 · The sync</figcaption>
+  </figure>
+
+  <!-- ─────────── STEP 05 — BRIEF ─────────── -->
+  <figure id="m-brief">
+    <div class="frame"><div class="screen">
+      <div class="status-bar">
+        <span>9:55</span>
+        <span class="status-icons">
+          <svg width="18" height="11" viewBox="0 0 18 11" fill="none"><circle cx="2" cy="9" r="1.6" fill="#fff"/><circle cx="6" cy="9" r="1.6" fill="#fff"/><circle cx="10" cy="9" r="1.6" fill="#fff"/><circle cx="14" cy="9" r="1.6" fill="#fff"/></svg>
+          <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M8 2C4.5 2 1.5 3.5 0 5.5L1.5 7C2.7 5.4 5.2 4 8 4s5.3 1.4 6.5 3L16 5.5C14.5 3.5 11.5 2 8 2zm0 4c-1.7 0-3.3.8-4.5 2L5 9.5C5.7 8.6 6.8 8 8 8s2.3.6 3 1.5L12.5 8C11.3 6.8 9.7 6 8 6z" fill="#fff"/></svg>
+          <svg width="26" height="13" viewBox="0 0 26 13"><rect x="0.5" y="0.5" width="22" height="12" rx="3" stroke="#fff" opacity=".5"/><rect x="2" y="2" width="19" height="9" rx="1.5" fill="#fff"/><rect x="23" y="4" width="2" height="5" rx=".5" fill="#fff" opacity=".55"/></svg>
+        </span>
+      </div>
+
+      <div class="top-bar">
+        <span class="back"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></span>
+        <span class="title">Pre-meeting brief</span>
+        <span class="menu"><svg width="18" height="4" viewBox="0 0 18 4"><circle cx="2" cy="2" r="1.6" fill="#A8B6E0"/><circle cx="9" cy="2" r="1.6" fill="#A8B6E0"/><circle cx="16" cy="2" r="1.6" fill="#A8B6E0"/></svg></span>
+      </div>
+
+      <div class="pad">
+        <div class="brief-head">
+          <div class="ava">PR</div>
+          <div>
+            <div class="who-name">Priya Rajan</div>
+            <div class="who-role">AVP Procurement · HDFC</div>
+          </div>
+          <div class="meeting-tag">Mtg<br>02</div>
+        </div>
+
+        <div class="brief-section-head">Recap · last 2 weeks</div>
+        <div class="timeline">
+          <div class="tl-event">
+            <div class="tl-when">Tue · 27 Apr</div>
+            <div class="tl-what"><b>₹40L deal scoped.</b> Tour of dashboard. Asked about BFSI compliance — you sent the overview Friday.</div>
+          </div>
+          <div class="tl-event">
+            <div class="tl-when">Wed · 28 Apr</div>
+            <div class="tl-what"><b>Decision-maker added:</b> CFO Manish G. Priya wants him in the demo to clear compliance.</div>
+          </div>
+          <div class="tl-event now">
+            <div class="tl-when">Mon · 03 May</div>
+            <div class="tl-what"><b>Procurement note:</b> Priya cleared the requisition. Expected close: end of Q3.</div>
+          </div>
+        </div>
+
+        <div class="next-card">
+          <div class="lbl">Today · 4pm meeting</div>
+          <div class="what"><b>Demo with Priya + CFO Manish.</b> Lead with the BFSI compliance walkthrough — that's the gate.</div>
+        </div>
+      </div>
+    </div></div>
+    <figcaption>Step 05 · The brief</figcaption>
+  </figure>
+
+</div>
+</body>
+</html>
