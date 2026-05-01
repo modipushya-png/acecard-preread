@@ -7,8 +7,7 @@
 <meta name="description" content="The full picture. The field CRM problem. The card problem. Both fixed by one product. A pre-read for Diageo." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700,400i,500i,600i,700i&f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     /* ── Snowball brand tokens ── */
@@ -1453,375 +1452,502 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     SNOWBALL BRANDBOOK OVERRIDES
-     Clash Display + Satoshi · alternating white / off-white sections ·
-     near-black hero · brand-blue accents · italic on display.
-     Copy is unchanged; only design.
+     DIAGEO BRAND OVERRIDES
+     Playfair Display (display/italic) · DM Sans (body/UI) · DM Mono ·
+     warm cream canvas · pure-black hero · gold-amber accents ·
+     editorial luxury — zero blue.
      ════════════════════════════════════════════════════════════════ */
 
-  /* Editorial overline — Snowball .ey: 11 · 700 · 0.2em · uppercase · mg */
-  .eyebrow{
-    background:transparent !important;
-    border:none !important;
-    padding:0 !important;
-    font-family:var(--sb-fb) !important;
-    font-size:11px !important;
-    font-weight:700 !important;
-    letter-spacing:.2em !important;
-    text-transform:uppercase;
-    color:var(--sb-mg) !important;
-    margin-bottom:24px;
-    gap:0;
-  }
-  .eyebrow::before{ display:none !important; }
-  .hero .eyebrow{ color:rgba(255,255,255,.4) !important; }
+  /* ── DIAGEO DESIGN TOKENS ──────────────────────────────────────── */
+  :root{
+    --dg-black:    #000000;
+    --dg-charcoal: #1A1917;
+    --dg-dark:     #2C2820;
+    --dg-white:    #FFFFFF;
+    --dg-cream:    #FAFAF6;
+    --dg-amber:    #FBF8E8;   /* Diageo --theme-amber */
+    --dg-brown:    #F3EFE7;   /* Diageo --theme-brown */
+    --dg-gold:     #9B7B52;   /* warm amber accent */
+    --dg-gold-lt:  #C4A882;
+    --dg-gold-dk:  #6B5238;
+    --dg-gray:     #6B6357;
+    --dg-lg:       #B8AFA5;
+    --dg-border:   #DDD8D0;
 
-  /* Section dividers — light rule */
-  .section-edge{
-    color:var(--sb-lg);
-    font-family:var(--sb-fb);
-    font-weight:700;
-    letter-spacing:.18em;
-  }
-  .section-edge::before, .section-edge::after{
-    background:linear-gradient(to right, transparent, var(--sb-bd), transparent);
-  }
+    /* Re-alias all Snowball tokens to Diageo values */
+    --bg:           var(--dg-cream);
+    --bg-2:         var(--dg-white);
+    --panel:        var(--dg-white);
+    --panel-2:      var(--dg-cream);
+    --border:       var(--dg-border);
+    --border-warm:  var(--dg-border);
+    --text:         var(--dg-charcoal);
+    --text-dim:     var(--dg-gray);
+    --text-muted:   var(--dg-lg);
+    --gold:         var(--dg-gold);
+    --gold-deep:    var(--dg-gold-dk);
+    --gold-soft:    var(--dg-amber);
+    --live:         var(--dg-gold);
+    --static:       var(--dg-lg);
+    --ink-bg:       var(--dg-amber);
+    --ink-bg-2:     var(--dg-white);
 
-  /* Display + section titles — Clash Display 600, italic accent in brand blue */
-  h1.hero-tag,
-  h2.section-title,
-  .flow-step h3,
-  .footer-cta h2,
-  #cta h2{
-    font-family:var(--sb-fd) !important;
-    font-weight:600;
-    color:var(--sb-dark);
-    letter-spacing:-.02em;
-    line-height:1.1;
-  }
-  h1.hero-tag{ line-height:1.05; }
-  h1.hero-tag .italic,
-  h2.section-title .italic,
-  .flow-step h3 .italic{
-    font-family:var(--sb-fd);
-    font-style:italic;
-    font-weight:600;
-    color:var(--sb-i600);
-    letter-spacing:-.02em;
+    /* Font families */
+    --sb-fd: 'Playfair Display', Georgia, serif;
+    --sb-fb: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* Lede + paragraph copy */
-  .hero p.lede{ color:rgba(255,255,255,.5); font-family:var(--sb-fb); font-size:clamp(17px,1.55vw,21px); line-height:1.7; }
-  .hero p.lede b{ color:#fff; font-weight:700; }
-  p.section-lead{ color:var(--sb-mg); font-family:var(--sb-fb); font-size:clamp(15px,1.35vw,18px); line-height:1.7; }
-  .flow-step p{ color:var(--sb-mg); font-family:var(--sb-fb); }
-  .flow-step p b{ color:var(--sb-dark); font-weight:700 }
-  .belief .label,
-  .stat .src,
-  .flow-step .marker{
-    color:var(--sb-lg) !important;
-    font-family:var(--sb-fb);
-    font-weight:700;
-    letter-spacing:.18em;
-    text-transform:uppercase;
+  /* ── GLOBAL FONT SWAP: JetBrains Mono → DM Mono ────────────────── */
+  *{ box-sizing:border-box }
+  body{
+    font-family:'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background:
+      radial-gradient(900px 520px at 12% 8%,  rgba(155,123,82,.05) 0%, transparent 65%),
+      radial-gradient(1100px 620px at 90% 22%, rgba(196,168,130,.07) 0%, transparent 65%),
+      linear-gradient(180deg, #FFFFFF 0%, #FAFAF6 38%, #F3EFE7 58%, #FAFAF6 80%, #FFFFFF 100%) !important;
+    background-attachment:fixed !important;
+    color: var(--dg-charcoal) !important;
   }
-  .stat .lbl{ color:var(--sb-mg); font-family:var(--sb-fb); }
-  .belief .claim{ color:var(--sb-dark); font-family:var(--sb-fd); font-weight:500; }
+  /* Replace every JetBrains Mono reference with DM Mono */
+  .eyebrow, .section-edge, .flow-step .marker, .stat .src, .belief .label,
+  .shot .shot-head .url, .shot .caption, .annot .num, .crm-strip .lbl,
+  .crm-chip, .badge, .card-head .url, .flow-shot-caption,
+  .flow-shot-quote .lbl, .flow-shot-meta .row,
+  .flow-shot-trio figcaption, .rv-label, .crm-field .ck,
+  .viz-tap-card .nm, .viz-fire, .viz-voice-mic .lbl,
+  .viz-voice-quote .lbl, .viz-field .k, .viz-sync-hub .l2,
+  .viz-brief-when, .viz-brief-tag, .iphone-link,
+  .col .who, .pro-num, .con-num, .con-ref, .pro .ref,
+  .vq .a, .baseline, .closing-contact,
+  .stat .stat-icon, .annot .num{
+    font-family:'DM Mono', 'Courier New', monospace !important;
+  }
 
-  /* ── HERO: near-black with subtle blue glow ─────────────────────── */
+  /* ── BODY CANVAS ─────────────────────────────────────────────────── */
+  /* Hero: pure Diageo black */
   .hero{
-    background:var(--sb-nb) !important;
-    color:#fff;
+    background: var(--dg-black) !important;
+    color: #fff;
   }
   .hero::before{
     background:
-      radial-gradient(700px 350px at 80% 0%, rgba(59,130,246,.10) 0%, transparent 60%),
-      radial-gradient(500px 300px at 20% 80%, rgba(96,165,250,.06) 0%, transparent 60%) !important;
+      radial-gradient(700px 350px at 80% 0%, rgba(155,123,82,.12) 0%, transparent 60%),
+      radial-gradient(500px 300px at 20% 80%, rgba(196,168,130,.07) 0%, transparent 60%) !important;
   }
-  .hero h1.hero-tag{ color:#fff; }
-  .hero h1.hero-tag .italic{ color:var(--sb-i400); }
+  .hero h1.hero-tag{ color: #fff; }
+  .hero h1.hero-tag .italic{ color: var(--dg-gold-lt); }
+  .hero p.lede{ color: rgba(255,255,255,.55); font-family:'DM Sans',sans-serif; line-height:1.7; }
+  .hero p.lede b{ color: #fff; font-weight:600; }
   .hero .toc a{
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.12);
-    color:rgba(255,255,255,.65);
-    font-family:var(--sb-fb);
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    color: rgba(255,255,255,.6);
+    font-family:'DM Sans',sans-serif;
     font-weight:500;
+    border-radius:4px !important;
+    letter-spacing:.06em;
   }
   .hero .toc a:hover{
-    background:rgba(255,255,255,.10);
-    border-color:rgba(255,255,255,.3);
-    color:#fff;
+    background: rgba(255,255,255,.10);
+    border-color: rgba(255,255,255,.35);
+    color: #fff;
+  }
+  .hero .eyebrow{ color:rgba(255,255,255,.35) !important; letter-spacing:.25em !important; }
+
+  /* ── TYPOGRAPHY: Playfair Display everywhere display is used ──── */
+  h1.hero-tag,
+  h2.section-title,
+  .flow-step h3,
+  .vq .q,
+  .col h4{
+    font-family:'Playfair Display', Georgia, serif !important;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--dg-charcoal);
+  }
+  h1.hero-tag{ color:#fff; font-weight:700; line-height:1.05; }
+  h1.hero-tag .italic,
+  h2.section-title .italic,
+  .flow-step h3 .italic{
+    font-family:'Playfair Display', Georgia, serif !important;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--dg-gold);
+    letter-spacing:-.01em;
+  }
+  .vq .q{
+    font-family:'Playfair Display', Georgia, serif !important;
+    font-style:italic;
+    font-weight:400;
+    color: var(--dg-charcoal);
+  }
+  .vq .q::before, .vq .q::after{ color: var(--dg-gold); }
+  .vq .a{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; letter-spacing:.04em; }
+  .vq .a b{ color:var(--dg-gold); }
+
+  p.section-lead{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; line-height:1.7; }
+  .flow-step p{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; }
+  .flow-step p b{ color:var(--dg-charcoal); font-weight:600; }
+  .pro h3, .con h3{
+    font-family:'Playfair Display', Georgia, serif !important;
+    font-weight:600; color:var(--dg-charcoal);
+  }
+  .pro p, .con p{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; }
+
+  /* ── EYEBROW: Diageo — all-caps, wide tracking, no pill ─────────── */
+  .eyebrow{
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: .22em !important;
+    text-transform: uppercase;
+    color: var(--dg-gold) !important;
+    margin-bottom: 20px;
+    gap: 0;
+  }
+  .eyebrow::before{ display:none !important; }
+
+  /* ── NAV: white, Diageo wordmark style ──────────────────────────── */
+  nav.top{
+    background: rgba(255,255,255,.95) !important;
+    border-bottom: 1px solid var(--dg-border) !important;
+    backdrop-filter: saturate(160%) blur(16px);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+  }
+  nav.top ul{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; }
+  nav.top ul a{ font-weight:500; letter-spacing:.04em; }
+  nav.top ul a:hover{ color:var(--dg-charcoal); }
+  nav.top .brand img{ filter:brightness(0) saturate(100%); }
+
+  /* ── SECTION DIVIDERS ────────────────────────────────────────────── */
+  .section-edge{
+    color: var(--dg-lg);
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 600;
+    letter-spacing: .18em;
+  }
+  .section-edge::before, .section-edge::after{
+    background: linear-gradient(to right, transparent, var(--dg-border), transparent);
   }
 
-  /* ── PANELS: white cards with subtle border ────────────────────── */
-  .belief,
-  .stat,
-  .flow-visual,
-  .flow-shot,
-  .vq,
-  .flow-shot-quote,
-  .flow-shot-meta .row,
-  .viz-voice-quote,
-  .pro,
-  .shot,
-  .con,
-  .flow-step .keypoints li,
-  .crm-strip,
+  /* ── WHITE PANELS ────────────────────────────────────────────────── */
+  .belief, .stat, .flow-visual, .flow-shot,
+  .flow-shot-quote, .flow-shot-meta .row, .vq,
+  .viz-voice-quote, .pro, .shot, .con,
+  .flow-step .keypoints li, .crm-strip,
   .competitor-grid .card{
-    background:var(--sb-white) !important;
-    backdrop-filter:none !important;
-    -webkit-backdrop-filter:none !important;
-    border:1px solid var(--sb-bd) !important;
-    box-shadow:none;
-    color:var(--sb-dark);
-    border-radius:16px !important;
+    background: var(--dg-white) !important;
+    border: 1px solid var(--dg-border) !important;
+    border-radius: 12px !important;
+    box-shadow: none;
+    color: var(--dg-charcoal);
+    backdrop-filter: none !important;
   }
   .belief.you-believe{
-    background:var(--sb-i50) !important;
-    border-color:var(--sb-i200) !important;
+    background: var(--dg-amber) !important;
+    border-color: var(--dg-brown) !important;
   }
   .belief.also-true{
-    background:var(--sb-off-white) !important;
-    border-color:var(--sb-bd) !important;
+    background: var(--dg-cream) !important;
+    border-color: var(--dg-border) !important;
+  }
+  .belief .label{
+    color: var(--dg-lg) !important;
+    font-family:'DM Sans',sans-serif;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+  }
+  .belief .claim{
+    color: var(--dg-charcoal);
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:400;
   }
 
-  /* Flow-visual (CSS scenes) — keep light */
-  .flow-visual{
-    background:var(--sb-off-white) !important;
-    border:1px solid var(--sb-bd) !important;
-  }
-  .flow-visual::before{ display:none; }
-
-  /* Flow-shot (real phone screenshots) — BLACK so the phone bezel blends.
-     Inner cards stay white for contrast; caption text flips to light. */
+  /* Flow-shot: warm dark background so phone bezels blend */
   .flow-shot{
-    background:var(--sb-nb) !important;
-    border:1px solid var(--sb-nb) !important;
-    box-shadow:0 24px 60px rgba(13,13,13,.18);
+    background: var(--dg-charcoal) !important;
+    border: 1px solid var(--dg-charcoal) !important;
+    box-shadow: 0 24px 60px rgba(26,25,23,.2);
   }
   .flow-shot::before{ display:none; }
   .flow-shot .flow-shot-caption{
-    color:rgba(255,255,255,.42) !important;
-    border-top-color:rgba(255,255,255,.12) !important;
+    color: rgba(255,255,255,.4) !important;
+    border-top-color: rgba(255,255,255,.10) !important;
   }
-  .flow-shot .flow-shot-caption b{ color:var(--sb-i400) !important; }
-
-  /* Stat numbers — Clash Display, brand blue */
-  .stat .num{
-    color:var(--sb-i600);
-    font-family:var(--sb-fd);
-    font-weight:600;
-    letter-spacing:-.02em;
+  .flow-shot .flow-shot-caption b{ color:var(--dg-gold-lt) !important; }
+  .flow-shot-quote, .flow-shot-meta .row{
+    background: rgba(255,255,255,.06) !important;
+    border-color: rgba(255,255,255,.12) !important;
   }
-  .stat .stat-icon{
-    background:var(--sb-i50);
-    border:1px solid var(--sb-i200);
-    color:var(--sb-i600);
+  .flow-shot-quote .lbl{ color:var(--dg-gold-lt) !important; letter-spacing:.18em; }
+  .flow-shot-quote .q{ color:#fff !important; }
+  .flow-shot-meta .row b{ color:#fff !important; }
+  .flow-shot-meta .row{ color:rgba(255,255,255,.6) !important; }
+  .flow-shot-meta .row .d{
+    background: var(--dg-gold) !important;
+    box-shadow: 0 0 6px rgba(155,123,82,.5) !important;
   }
-
-  /* Versus disc — solid black with brand-blue ring */
-  .versus{
-    background:var(--sb-nb) !important;
-    color:#fff !important;
-    box-shadow:0 0 0 6px var(--sb-i100), 0 12px 32px rgba(13,13,13,.18) !important;
-    font-family:var(--sb-fb);
-    font-weight:700;
+  .flow-shot-meta .row .d.gd{
+    background: var(--dg-gold-lt) !important;
+    box-shadow: 0 0 6px rgba(196,168,130,.5) !important;
   }
 
-  /* Big quote — Clash Display italic */
+  /* ── VQ / BIG QUOTE ──────────────────────────────────────────────── */
   .vq{
-    background:var(--sb-off-white) !important;
-    border:1px solid var(--sb-bd) !important;
-    box-shadow:none;
+    background: var(--dg-amber) !important;
+    border: 1px solid var(--dg-brown) !important;
+    box-shadow: none;
   }
-  .vq::before{
-    background:radial-gradient(circle, rgba(59,130,246,.10), transparent 65%);
-  }
-  .vq .q{
-    font-family:var(--sb-fd) !important;
-    font-style:italic;
-    font-weight:500;
-    color:var(--sb-dark);
-  }
-  .vq .q::before, .vq .q::after{ color:var(--sb-i600); }
-  .vq .a{ color:var(--sb-mg); font-family:var(--sb-fb); }
-  .vq .a b{ color:var(--sb-i600); }
 
-  /* Flow markers — large numbers in Clash Display */
+  /* ── FLOW MARKERS ────────────────────────────────────────────────── */
   .flow-step .marker .big{
-    background:none;
-    -webkit-text-fill-color:initial;
-    color:var(--sb-dark);
-    font-family:var(--sb-fd);
-    font-weight:700;
+    background: none;
+    -webkit-text-fill-color: initial;
+    color: var(--dg-charcoal);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
   }
-  .flow-step{ border-top-color:var(--sb-bd) !important; }
+  .flow-step .marker{
+    color: var(--dg-lg) !important;
+    font-family: 'DM Mono', monospace;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+  .flow-step .marker .lbl{
+    color: var(--dg-charcoal);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: .06em;
+  }
+  .flow-step{ border-top-color: var(--dg-border) !important; }
 
-  /* CTA buttons — Snowball solid black / blue */
-  .footer-cta a.primary,
-  .pilot a.primary,
-  a.primary{
-    background:var(--sb-nb) !important;
-    color:#fff !important;
-    border-color:var(--sb-nb) !important;
-    border-radius:8px !important;
-    font-family:var(--sb-fb);
-    font-weight:700;
-    letter-spacing:.02em;
-    box-shadow:0 4px 16px rgba(13,13,13,.18);
+  /* ── STAT CARDS ──────────────────────────────────────────────────── */
+  .stat .num{
+    color: var(--dg-gold);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -.02em;
   }
-  .footer-cta a.primary:hover,
-  .pilot a.primary:hover,
-  a.primary:hover{
-    background:var(--sb-i600) !important;
-    border-color:var(--sb-i600) !important;
-    box-shadow:0 8px 24px rgba(37,99,235,.32);
+  .stat .lbl{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; }
+  .stat .src{ color:var(--dg-lg); font-family:'DM Mono',monospace; letter-spacing:.04em; }
+  .stat .stat-icon{
+    background: var(--dg-amber);
+    border: 1px solid var(--dg-brown);
+    color: var(--dg-gold);
   }
-  .footer-cta a.secondary,
-  .pilot a.secondary,
-  a.secondary{
-    background:var(--sb-white) !important;
-    color:var(--sb-dark) !important;
-    border:1px solid var(--sb-bd) !important;
-    border-radius:8px !important;
-    font-family:var(--sb-fb);
-    font-weight:500;
-  }
-  .cta-phone{ color:var(--sb-i600) !important; font-weight:700; font-family:var(--sb-fd); }
 
-  /* Nav — clean white */
-  nav.top{
-    background:rgba(255,255,255,.92) !important;
-    border-bottom:1px solid var(--sb-bd) !important;
-    backdrop-filter:saturate(180%) blur(16px);
-    -webkit-backdrop-filter:saturate(180%) blur(16px);
+  /* ── VERSUS DISC ─────────────────────────────────────────────────── */
+  .versus{
+    background: var(--dg-black) !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 6px var(--dg-brown), 0 12px 32px rgba(26,25,23,.18) !important;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    border-radius: 50%;
   }
-  nav.top ul{ color:var(--sb-mg); font-family:var(--sb-fb); }
-  nav.top ul a:hover{ color:var(--sb-dark); }
 
-  /* Competitor card */
-  .competitor-grid .card-head{
-    border-bottom:1px solid var(--sb-bd);
-    background:var(--sb-white);
-  }
-  .competitor-grid .card-head .name{ color:var(--sb-dark); font-family:var(--sb-fd); font-weight:600; }
-  .competitor-grid .card-head .url{ color:var(--sb-mg); font-family:'JetBrains Mono', monospace; }
-  .competitor-grid .badge{ font-family:var(--sb-fb); font-weight:700; letter-spacing:.16em; }
-  .competitor-grid .badge.live{ color:var(--sb-i600); border-color:var(--sb-i200); background:var(--sb-i50); }
-  .competitor-grid .badge.static{ color:var(--sb-mg); border-color:var(--sb-bd); }
-
-  /* Pro / Con */
-  .pro h3, .con h3{ color:var(--sb-dark); font-family:var(--sb-fd); font-weight:600; }
-  .pro p, .con p, .pro li, .con li{ color:var(--sb-mg); font-family:var(--sb-fb); }
-
-  /* Shot / window mockups */
+  /* ── SHOT / WINDOW MOCKUPS ───────────────────────────────────────── */
   .shot{
-    background:var(--sb-off-white) !important;
-    border:1px solid var(--sb-bd);
+    background: var(--dg-cream) !important;
+    border: 1px solid var(--dg-border);
   }
-  .shot .shot-head{ border-bottom:1px solid var(--sb-bd); background:var(--sb-white); }
-  .shot .shot-head .traffic span{ background:var(--sb-bd); }
-  .shot .shot-head .url{ color:var(--sb-mg); font-family:'JetBrains Mono', monospace; }
+  .shot .shot-head{ border-bottom:1px solid var(--dg-border); background:var(--dg-white); }
+  .shot .shot-head .traffic span{ background:var(--dg-border); }
+  .shot .shot-head .url{ color:var(--dg-gray); font-family:'DM Mono',monospace; }
+  .shot .caption{ font-family:'DM Mono',monospace; color:var(--dg-lg); line-height:1.7; }
+  .shot .caption b{ color:var(--dg-gold); font-weight:600; }
 
-  /* CRM strip */
-  .crm-strip .lbl{ color:var(--sb-lg); font-weight:700; letter-spacing:.18em; text-transform:uppercase; font-family:var(--sb-fb); }
+  /* ── ANNOTATION GRID ─────────────────────────────────────────────── */
+  .annot .num{ color:var(--dg-gold); font-family:'DM Mono',monospace; }
+  .annot h4{ color:var(--dg-charcoal); font-family:'DM Sans',sans-serif; font-weight:700; }
+  .annot p{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; }
+
+  /* ── PROS ────────────────────────────────────────────────────────── */
+  .pro{
+    background: var(--dg-white) !important;
+    border: 1px solid var(--dg-border) !important;
+    border-radius: 12px !important;
+  }
+  .pro:hover{ border-color: var(--dg-gold) !important; transform:translateY(-3px); box-shadow:0 14px 40px rgba(26,25,23,.10); }
+  .pro-num{ color:var(--dg-gold); font-family:'DM Mono',monospace; letter-spacing:.06em; }
+  .pro .ref{
+    margin-top:14px; padding-top:14px; border-top:1px solid var(--dg-border);
+    font-family:'DM Mono',monospace; font-size:10px; color:var(--dg-lg); letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  /* ── CONS ────────────────────────────────────────────────────────── */
+  #gaps{
+    background:
+      radial-gradient(700px 350px at 90% 0%, rgba(155,123,82,.06), transparent 60%),
+      transparent;
+  }
+  .con{
+    background: var(--dg-white) !important;
+    border: 1px solid var(--dg-border) !important;
+    border-radius: 12px !important;
+  }
+  .con:hover{ border-color:var(--dg-gold) !important; transform:translateY(-2px); }
+  .con-num{ color:var(--dg-lg); font-family:'DM Mono',monospace; }
+  .con-ref{ color:var(--dg-lg); font-family:'DM Mono',monospace; border-top-color:var(--dg-border); letter-spacing:.04em; }
+
+  /* ── CRM STRIP ───────────────────────────────────────────────────── */
+  .crm-strip .lbl{
+    color:var(--dg-lg); font-weight:600; letter-spacing:.18em;
+    text-transform:uppercase; font-family:'DM Sans',sans-serif;
+  }
   .crm-strip .crm-chip{
-    background:var(--sb-off-white);
-    border:1px solid var(--sb-bd);
-    color:var(--sb-dark);
-    font-family:var(--sb-fb);
-    font-weight:500;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.14);
+    color: rgba(255,255,255,.85);
+    font-family:'DM Sans',sans-serif; font-weight:500;
   }
-  .crm-strip .crm-chip img.lg-img{
-    /* Tint white logos to near-black for light surface */
-    filter:brightness(0) saturate(100%);
+  .crm-strip .crm-chip img.lg-img{ filter:brightness(0) invert(1); }
+  .crm-strip .crm-chip .d{ background:var(--dg-gold); box-shadow:0 0 6px rgba(155,123,82,.5); }
+
+  /* ── COMPETITOR CARDS ────────────────────────────────────────────── */
+  .competitor-grid .card{
+    background: var(--dg-white) !important;
+    border: 1px solid var(--dg-border) !important;
+    border-radius: 10px !important;
   }
-  .crm-strip .crm-chip .d{ background:var(--sb-i500); box-shadow:0 0 6px rgba(59,130,246,.45); }
-
-  /* Indicator dots in flow-shot rows */
-  .flow-shot-meta .row .d{ background:var(--sb-i500) !important; box-shadow:0 0 6px rgba(59,130,246,.45) !important; }
-  .flow-shot-meta .row .d.gd{ background:var(--sb-i400) !important; box-shadow:0 0 6px rgba(96,165,250,.45) !important; }
-
-  /* Inline accents in captions / quotes */
-  .flow-shot-quote .lbl,
-  .flow-shot-caption b,
-  .flow-shot-trio figcaption b{
-    color:var(--sb-i600);
-    font-family:var(--sb-fb);
-    font-weight:700;
-    letter-spacing:.16em;
+  .competitor-grid .card:hover{
+    border-color: var(--dg-gold) !important;
+    box-shadow: 0 14px 40px rgba(26,25,23,.10);
   }
+  .competitor-grid .card-head{
+    border-bottom: 1px solid var(--dg-border);
+    background: var(--dg-white);
+  }
+  .competitor-grid .card-head .name{ color:var(--dg-charcoal); font-family:'DM Sans',sans-serif; font-weight:600; }
+  .competitor-grid .card-head .url{ color:var(--dg-lg); font-family:'DM Mono',monospace; }
+  .competitor-grid .badge{ font-family:'DM Mono',monospace; font-weight:600; letter-spacing:.14em; }
+  .competitor-grid .badge.live{ color:var(--dg-gold); border-color:var(--dg-brown); background:var(--dg-amber); }
+  .competitor-grid .badge.static{ color:var(--dg-lg); border-color:var(--dg-border); }
 
-  /* Column overlay — subtle blue tint */
-  .col + .col{ background:linear-gradient(180deg, var(--sb-i50), transparent); }
+  /* ── iPHONE FRAMES ───────────────────────────────────────────────── */
+  #acecard-profiles{
+    background:
+      radial-gradient(900px 460px at 50% 0%, rgba(155,123,82,.10), transparent 60%),
+      transparent;
+    padding-top:130px; padding-bottom:140px;
+  }
+  .iphone-name{ font-family:'Playfair Display',serif; font-weight:600; }
+  .iphone-title{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; }
+  .iphone-link{
+    color:var(--dg-gold);
+    border-color:var(--dg-brown);
+    font-family:'DM Mono',monospace;
+    border-radius:4px !important;
+    letter-spacing:.06em;
+  }
+  .iphone-link:hover{ background:var(--dg-amber); }
 
-  /* Footer CTA */
-  .footer-cta h2, #cta h2, section.cta h2{ color:var(--sb-dark); font-family:var(--sb-fd); font-weight:600; }
-  .footer-cta h2 .italic, #cta h2 .italic{ color:var(--sb-i600); font-style:italic; }
-  .footer-cta p, #cta p{ color:var(--sb-mg); font-family:var(--sb-fb); }
+  /* ── COMPARE 2-COL ───────────────────────────────────────────────── */
+  .col .who{ color:var(--dg-lg); font-family:'DM Mono',monospace; letter-spacing:.14em; }
+  .col h4{ color:var(--dg-charcoal); font-family:'Playfair Display',serif; font-weight:700; }
+  .col + .col h4{ color:var(--dg-gold); }
+  .col .what{ color:var(--dg-gray); font-family:'DM Sans',sans-serif; }
+  .col + .col{ background:linear-gradient(180deg, var(--dg-amber), transparent); }
 
-  /* Section background rhythm — let the body gradient show through.
-     Alternate sections wear a subtle ice-blue overlay; others stay clear
-     so the white→ice-blue wash reads continuously down the page. */
+  /* ── SECTION BACKGROUND RHYTHM ───────────────────────────────────── */
   section{ background:transparent; }
   section#problem,
   section#dashboard,
   section#gaps,
   section.flow,
-  section.cta,
   section#features,
   section#cta,
   .footer-cta{
-    background:linear-gradient(180deg, rgba(239,246,255,.85) 0%, rgba(219,234,254,.55) 100%) !important;
+    background:linear-gradient(180deg, rgba(251,248,232,.7) 0%, rgba(243,239,231,.5) 100%) !important;
   }
-  /* Hero keeps its own dark bg via .hero rule above */
 
-  /* Tint the white-only Acecard wordmark to dark on the now-light nav */
-  nav.top .brand img{ filter:brightness(0) saturate(100%); }
+  /* ── KEYPOINT PILLS ──────────────────────────────────────────────── */
+  .flow-step .keypoints li{
+    background: var(--dg-white) !important;
+    border: 1px solid var(--dg-border) !important;
+    border-radius: 8px !important;
+    color: var(--dg-gray);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .flow-step .keypoints li b{ color:var(--dg-charcoal); }
 
-  /* ── CLOSING FOMO BLOCK ──────────────────────────────────────────
-     Three editorial lines, no CTA copy, no buttons.  Years are muted,
-     italic accents land in brand blue.  Contact info sits as quiet
-     tertiary text below — present but not promoted. */
+  /* ── CLOSING FOOTER ──────────────────────────────────────────────── */
   footer.closing{
     padding:140px 40px 120px;
-    background:linear-gradient(180deg, rgba(239,246,255,.5) 0%, rgba(219,234,254,.7) 100%);
+    background:linear-gradient(180deg, rgba(251,248,232,.5) 0%, rgba(243,239,231,.7) 100%);
   }
   footer.closing .wrap{ max-width:1080px; margin:0 auto; }
   .closing-line{
-    font-family:var(--sb-fd);
-    font-weight:600;
+    font-family:'Playfair Display', Georgia, serif;
+    font-weight:700;
     font-size:clamp(26px, 3.6vw, 44px);
     line-height:1.18;
     letter-spacing:-.02em;
-    color:var(--sb-dark);
+    color:var(--dg-charcoal);
     margin:0 0 36px;
     max-width:940px;
   }
   .closing-line:last-of-type{ margin-bottom:0; }
   .closing-line .italic{
-    font-family:var(--sb-fd);
+    font-family:'Playfair Display', Georgia, serif;
     font-style:italic;
-    font-weight:600;
-    color:var(--sb-i600);
-    letter-spacing:-.02em;
+    font-weight:400;
+    color:var(--dg-gold);
   }
   .closing-line .yr{
-    color:var(--sb-mg);
+    color:var(--dg-lg);
     font-weight:500;
     font-style:normal;
+    font-family:'DM Sans',sans-serif;
   }
   .closing-line .nowrap{ white-space:nowrap; }
   .closing-contact{
     margin:56px 0 0 !important;
-    font-family:var(--sb-fb);
-    font-size:13px;
-    font-weight:500;
-    color:var(--sb-mg);
-    letter-spacing:.02em;
+    font-family:'DM Sans',sans-serif;
+    font-size:13px; font-weight:500;
+    color:var(--dg-lg); letter-spacing:.04em;
   }
-  .closing-contact a{ color:var(--sb-mg); transition:color .2s ease; }
-  .closing-contact a:hover{ color:var(--sb-i600); }
+  .closing-contact a{ color:var(--dg-lg); transition:color .2s ease; }
+  .closing-contact a:hover{ color:var(--dg-gold); }
+
+  /* ── BASELINE ────────────────────────────────────────────────────── */
+  .baseline{
+    text-align:center; padding:30px 0 60px;
+    color:var(--dg-lg); font-family:'DM Mono',monospace;
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  }
+  .baseline span{ color:var(--dg-gold); }
+
+  /* ── CTA BUTTONS (Diageo: solid black, minimal rounding) ─────────── */
+  a.primary, footer.cta a.primary{
+    background: var(--dg-black) !important;
+    color: #fff !important;
+    border-color: var(--dg-black) !important;
+    border-radius: 4px !important;
+    font-family:'DM Sans',sans-serif;
+    font-weight:600; letter-spacing:.06em;
+    box-shadow:0 4px 14px rgba(26,25,23,.18);
+  }
+  a.primary:hover, footer.cta a.primary:hover{
+    background: var(--dg-gold-dk) !important;
+    border-color: var(--dg-gold-dk) !important;
+  }
+  a.secondary, footer.cta a.secondary{
+    background: var(--dg-white) !important;
+    color: var(--dg-charcoal) !important;
+    border: 1px solid var(--dg-border) !important;
+    border-radius: 4px !important;
+    font-family:'DM Sans',sans-serif; font-weight:500;
+  }
+
+  /* ── FOR DIAGEO NAV CHIP ─────────────────────────────────────────── */
   @media (max-width:720px){
     footer.closing{ padding:96px 20px 80px; }
     .closing-line{ font-size:clamp(22px, 6.4vw, 32px); margin-bottom:28px; }
